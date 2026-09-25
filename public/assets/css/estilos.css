@@ -1,0 +1,877 @@
+/* ============================================================
+   estilos.css - Estilos propios del equipo Volvo
+   Aquí van SOLO nuestros ajustes. No tocamos main.css (plantilla).
+   ============================================================ */
+.cart-link {
+  position: relative;
+}
+
+/* ---- Iconos de la fila "Entrega inmediata / Contáctanos / Novedades / Blog" ---- */
+.features .item .image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: normal;
+  margin: 0 auto;
+}
+.features .item .image i {
+  font-size: 34px;
+  color: #fff;
+}
+
+/* ---- Logo del header: un poco de aire arriba y abajo, con o sin scroll ---- */
+.header-area .main-nav .logo {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+/* La barra de scroll tiene 80px fijos y no dejaba espacio para el margin-bottom */
+.background-header {
+  height: auto !important;
+  min-height: 80px;
+}
+
+/* Menú centrado verticalmente con el logo al hacer scroll, con letra un poco más grande */
+.background-header .main-nav {
+  align-items: center;
+}
+.background-header .main-nav .logo {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+.background-header .main-nav ul.nav {
+  margin-top: 0;
+}
+.background-header .main-nav .nav li {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.background-header .main-nav .nav li a {
+  font-size: 16px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+/* ---- Nav del header: Iniciar sesión / Registrarse mas juntos y hover mas marcado ---- */
+.header-area .main-nav .nav li:has(> a[href="login.html"]),
+.header-area .main-nav .nav li:has(> a[href="registro.html"]) {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.header-area .main-nav .nav li a[href="login.html"],
+.header-area .main-nav .nav li a[href="registro.html"] {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.header-area .main-nav .nav li:hover a {
+  background-color: rgba(255, 255, 255, 0.22);
+}
+@media (max-width: 767px) {
+  .header-area .main-nav .nav li a[href="login.html"],
+  .header-area .main-nav .nav li a[href="registro.html"] {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+.busqueda-resultado {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 15px;
+  color: #4a4a4a;
+}
+.busqueda-resultado a {
+  color: var(--color-primary);
+  text-decoration: underline !important;
+}
+.carrito-contador {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+.aviso {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 4px;
+}
+.error {
+  color: #c0392b;
+  font-size: 0.85rem;
+}
+.campo {
+  margin-bottom: 14px;
+}
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%;
+  margin-bottom: 30px;
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.trending .item .thumb img,
+.most-played .item .thumb img,
+.trending-box .item .thumb img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.most-played .item .down-content h4 {
+  min-height: 42px;
+}
+
+
+.categories .item .thumb img {
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+.categories .item .thumb .category-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 45px 20px 18px;
+  background: linear-gradient(to top, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, 0) 100%);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  text-align: left;
+  pointer-events: none;
+}
+
+/*article*/
+
+article {
+  max-width: 720px;
+  margin: 0 auto 80px auto;
+  text-align: center;
+}
+
+article h2 {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+article p {
+  margin-bottom: 15px;
+}
+
+article a {
+  display: inline-block;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+main article {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px 15px 0px 15px;
+}
+
+main article img {
+  border-radius: 25px;
+  margin-bottom: 30px;
+}
+
+main article h1 {
+  font-size: 32px;
+  line-height: 42px;
+  margin-bottom: 25px;
+}
+
+main article p {
+  margin-bottom: 25px;
+}
+
+main article a {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 80px;
+  color: var(--color-primary);
+  font-weight: 600;
+  transition: all .3s;
+}
+
+main article a:hover {
+  color: var(--color-accent);
+}
+
+.trailer{
+  text-align: center;
+}
+
+.trailer h2 {
+  margin-bottom: 40px;
+}
+.avisoerror{
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d7da;
+color: #721c24;
+  border-radius: 4px;
+
+}
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+/* ---- Titulo del banner principal en index.html ---- */
+/* main.css lo pensó como h2; lo pasamos a h1 (es el titulo real de la
+   pagina, index.html no tenia ningun h1) y repetimos aqui su estilo
+   para no tocar la plantilla. */
+.main-banner .caption h1 {
+  font-size: 48px;
+  color: #fff;
+  margin-top: 20px;
+  position: relative;
+  padding-bottom: 5px;
+  margin-bottom: 40px;
+}
+.main-banner .caption h1:after {
+  position: absolute;
+  background-image: linear-gradient(to right, var(--color-accent), transparent);
+  border-radius: 4px;
+  width: 202px;
+  height: 6px;
+  content: '';
+  left: 125px;
+  bottom: 0;
+}
+@media (max-width: 767px) {
+  .main-banner .caption h1 {
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 480px) {
+  .main-banner .caption h1 {
+    font-size: 26px;
+  }
+}
+@media (min-width: 768px) and (max-width: 992px) {
+  .main-banner .caption h1 {
+    font-size: 36px;
+  }
+}
+/* ---- Titulo de .page-heading ---- */
+/* main.css lo pensó como h3; lo pasamos a h1 (es el titulo real de la
+   pagina) y repetimos aqui su estilo para no tocar la plantilla. */
+.page-heading h1 {
+  font-size: 48px;
+  text-transform: uppercase;
+  color: #fff;
+  margin-top: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+/* ---- Tarjetas del equipo en nosotros.html ---- */
+/* Reutilizan .features de la plantilla, pero con un icono en vez de una imagen */
+.equipo .item .image i {
+  font-size: 34px;
+  color: #fff;
+}
+.equipo .item p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: #7a7a7a;
+}
+/* ---- Preguntas frecuentes de nosotros.html ---- */
+/* El acordeon es de Bootstrap; aqui solo lo pintamos con los colores de Volvo */
+.faq .accordion-item {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.faq .accordion-button {
+  font-size: 16px;
+  font-weight: 600;
+}
+.faq .accordion-button:not(.collapsed) {
+  color: var(--color-primary);
+  background-color: rgba(14, 138, 168, .08);
+  box-shadow: none;
+}
+.faq .accordion-button:focus {
+  border-color: transparent;
+  box-shadow: none;
+}
+.faq .accordion-body {
+  font-size: 15px;
+  color: #7a7a7a;
+}
+/* ---- Opiniones de la ficha de producto ---- */
+.opinion {
+  border-bottom: 1px solid #eaeaea;
+  padding: 15px 0;
+  /* la plantilla centra el texto de las pestanas y aqui se ve mejor alineado */
+  text-align: left;
+}
+.opinion:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.opinion-cabecera {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.opinion-cabecera h5 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.opinion-estrellas {
+  color: var(--color-accent);
+  font-size: 14px;
+  letter-spacing: 2px;
+}
+.opinion p {
+  margin: 0;
+  font-size: 14px;
+  color: #4a4a4a;
+}
+/* ---- Barra superior del panel ---- */
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 25px;
+  background-color: #00000a;
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+.admin-marca {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.admin-marca:hover {
+  color: #fff;
+}
+.admin-marca span {
+  color: var(--color-secondary);
+}
+.admin-sesion {
+  margin: 0;
+  color: #cfd3dc;
+  font-size: 14px;
+}
+.admin-layout {
+  display: flex;
+  flex: 1;
+}
+.admin-sidebar {
+  width: 220px;
+  background-color: #00000a;
+  padding: 20px;
+}
+.admin-content {
+  flex: 1;
+  padding: 30px;
+}
+.admin-footer {
+  background: #00000a;
+  color: #fff;
+  text-align: center;
+  padding: 15px;
+  margin-top: 0;
+  border-radius: 0;
+}
+.admin-footer p {
+  color: #fff;
+  margin: 0;
+}
+
+/* ---- Barra lateral del panel ---- */
+.admin-sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.admin-sidebar nav li {
+  margin-bottom: 4px;
+}
+.admin-sidebar nav a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #cfd3dc;
+  font-size: 15px;
+  transition: background-color .2s, color .2s;
+}
+.admin-sidebar nav a:hover {
+  background-color: rgba(255, 255, 255, .08);
+  color: #fff;
+}
+
+/* ---- Contenido del panel ---- */
+.admin-content h1 {
+  margin-bottom: 10px;
+}
+.admin-content > a {
+  display: inline-block;
+  margin: 15px 0;
+  padding: 8px 16px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border-radius: 6px;
+  font-weight: 600;
+}
+.admin-content > a:hover {
+  background-color: var(--color-accent);
+}
+
+/* ---- Tablas ---- */
+.admin-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+.admin-content th,
+.admin-content td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+  font-size: 14px;
+}
+.admin-content thead th {
+  background-color: #00000a;
+  color: #fff;
+  font-weight: 600;
+}
+.admin-content tbody tr:hover {
+  background-color: #f5f6f8;
+}
+.admin-content td a {
+  color: var(--color-primary);
+  font-weight: 600;
+  margin-right: 10px;
+}
+.admin-content .btn-eliminar {
+  background: none;
+  border: 1px solid #c0392b;
+  color: #c0392b;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.admin-content .btn-eliminar:hover {
+  background-color: #c0392b;
+  color: #fff;
+}
+
+/* ---- Formularios del panel ---- */
+.admin-content form {
+  max-width: 500px;
+}
+.admin-content .campo label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.admin-content .campo input,
+.admin-content .campo select,
+.admin-content .campo textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+.admin-content form button[type="submit"] {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: var(--color-primary);
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.admin-content form button[type="submit"]:hover {
+  background-color: var(--color-accent);
+}
+.admin-content #aviso {
+  margin-top: 14px;
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border-radius: 6px;
+  max-width: 500px;
+}
+
+/* ---- Tarjetas de resumen del home ---- */
+.admin-resumen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 25px;
+}
+.admin-card {
+  flex: 1;
+  min-width: 180px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+.admin-card h2 {
+  font-size: 40px;
+  margin: 0 0 6px;
+  color: var(--color-primary);
+}
+.admin-card p {
+  margin: 0 0 12px;
+  color: #555;
+}
+.admin-card a {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+body {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+.main-nav .nav > li {
+    position: relative;
+}
+
+.menu-cuenta {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+    list-style: none;
+    margin: 0;
+    min-width: 150px;
+    padding: 6px;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 10;
+}
+
+.menu-cuenta button {
+    background: none;
+    border: 0;
+    color: #333;
+    cursor: pointer;
+    padding: 8px 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.menu-cuenta button:hover {
+    background: #f2f2f2;
+}
+
+
+@media (max-width: 768px) {
+  /* La barra superior se apila para que quepa el nombre de la sesion */
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 15px;
+  }
+  .admin-layout {
+    flex-direction: column;
+  }
+  .admin-sidebar {
+    width: 100%;
+    padding: 12px 15px;
+  }
+  /* Los enlaces del menú pasan de lista vertical a fila horizontal */
+  .admin-sidebar nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .admin-sidebar nav li {
+    margin-bottom: 0;
+  }
+  .admin-sidebar nav a {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  .admin-content {
+    padding: 20px 15px;
+  }
+  /* Las tablas tienen 6 columnas y no caben: se deslizan de lado */
+  .admin-content table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  /* Las tarjetas del resumen se apilan una debajo de otra */
+  .admin-card {
+    min-width: 100%;
+  }
+}
+
+/*Carrito compra*/
+
+.cart-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 30px;
+  align-items: start;
+}
+
+.cart-items {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow .2s ease;
+}
+
+.cart-item:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item-thumb {
+  flex: 0 0 auto;
+  width: 78px;
+  height: 78px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #f1f0fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-item-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cart-item-thumb i {
+  color: var(--color-primary);
+  font-size: 26px;
+}
+
+.cart-item-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.cart-item-nombre {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cart-item-cantidad {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 14px;
+}
+
+.cart-item-cantidad button {
+  width: 26px;
+  height: 26px;
+  border: 1px solid #ddd;
+  background-color: #fafafa;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.cart-item-cantidad button:hover {
+  background-color: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.btn-eliminar {
+  border: none;
+  background: none;
+  color: #7a7a7a;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0;
+}
+
+.btn-eliminar:hover {
+  color: #c0392b;
+}
+
+.cart-item-precio {
+  flex: 0 0 auto;
+  text-align: right;
+}
+
+.cart-item-precio strong {
+  display: block;
+  font-size: 16px;
+}
+
+.cart-item-preciounit {
+  display: block;
+  font-size: 12px;
+  color: #999;
+}
+
+.carrito-vacio {
+  text-align: center;
+  padding: 50px 20px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+}
+
+.carrito-vacio a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.cart-summary {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 22px;
+  position: sticky;
+  top: 100px;
+}
+
+.cart-summary-titulo {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #7a7a7a;
+  margin-bottom: 16px;
+}
+
+.cart-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.cart-summary-total strong {
+  font-size: 24px;
+  color: var(--color-primary);
+}
+
+.cart-summary-nota {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.btn-finalizar {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 25px;
+  background-color: var(--color-accent);
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-finalizar:hover {
+  opacity: 0.9;
+}
+
+.btn-finalizar:disabled,
+.btn-vaciar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-vaciar {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  background: none;
+  color: #7a7a7a;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.btn-vaciar:hover {
+  color: #c0392b;
+}
+
+@media (max-width: 767px) {
+  .cart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cart-item {
+    flex-wrap: wrap;
+  }
+
+  .cart-item-precio {
+    margin-left: auto;
+  }
+}
