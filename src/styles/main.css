@@ -1,6 +1,3 @@
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
-
 :root {
   /* Paleta estilo Warframe: cian tecnológico + acento energía cálida */
   --color-primary: #0E8AA8;
@@ -573,7 +570,7 @@ body {
 }
 
 .main-banner {
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.1) 70%), url(../images/wj1cjy6hy0t51.jpg);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.1) 70%), url(/assets/images/wj1cjy6hy0t51.jpg);
   border-radius: 0px 0px 150px 150px;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -921,7 +918,7 @@ Trending Style
 }
 
 .cta::after {
-  background-image: url(../images/cta-bg.jpg);
+  background-image: url(/assets/images/cta-bg.jpg);
   max-width: 550px;
   max-height: 510px;
   width: 100%;
