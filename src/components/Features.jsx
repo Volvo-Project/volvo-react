@@ -4,7 +4,7 @@ function Features() {
       <div className="container">
         <div className="row">
           <div className="col-lg-3 col-md-6">
-<a href="nosotros.html">
+            <a href="nosotros.html">
               <div className="item">
                 <div className="image">
                   <i className="fa-solid fa-bolt" aria-hidden="true"></i>
@@ -24,7 +24,6 @@ function Features() {
             </a>
           </div>
           <div className="col-lg-3 col-md-6">
-
             <a href="detalle-producto.html?id=gta-6">
               <div className="item">
                 <div className="image">
@@ -35,7 +34,6 @@ function Features() {
             </a>
           </div>
           <div className="col-lg-3 col-md-6">
-
             <a href="blogs.html">
               <div className="item">
                 <div className="image">
@@ -45,7 +43,7 @@ function Features() {
               </div>
             </a>
           </div>
-       </div>
+        </div>
       </div>
     </div>
   );
