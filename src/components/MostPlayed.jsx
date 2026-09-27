@@ -1,3 +1,63 @@
+const juegos = [
+  {
+    id: "warframe",
+    nombre: "Warframe",
+    categoria: "Acción",
+    imagen: "assets/images/warframe-hero.jpg",
+  },
+  {
+    id: "pubg-battlegrounds",
+    nombre: "PUBG Battlegrounds",
+    categoria: "Battle Royale",
+    imagen: "assets/images/pubg-battlegrounds-hero.jpg",
+  },
+  {
+    id: "rocket-league",
+    nombre: "Rocket League",
+    categoria: "Deportes",
+    imagen: "assets/images/rocket-league-hero.jpg",
+  },
+  {
+    id: "dead-by-daylight",
+    nombre: "Dead by Daylight",
+    categoria: "Terror",
+    imagen: "assets/images/dead-by-daylight-hero.jpg",
+  },
+  {
+    id: "brawlhalla",
+    nombre: "Brawlhalla",
+    categoria: "Lucha",
+    imagen:
+      "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/291550/library_hero.jpg",
+  },
+  {
+    id: "hollow-knight",
+    nombre: "Hollow Knight",
+    categoria: "Metroidvania",
+    imagen:
+      "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/367520/library_hero.jpg",
+  },
+];
+
+function TarjetaJuego({ id, nombre, categoria, imagen }) {
+  return (
+    <div className="col-lg-2 col-md-6 col-sm-6">
+      <div className="item">
+        <div className="thumb">
+          <a href={`detalle-producto.html?id=${id}`}>
+            <img src={imagen} alt={`Portada de ${nombre}`} />
+          </a>
+        </div>
+        <div className="down-content">
+          <span className="category">{categoria}</span>
+          <h4>{nombre}</h4>
+          <a href={`detalle-producto.html?id=${id}`}>Explorar</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function MostPlayed() {
   return (
     <section className="section most-played">
@@ -14,110 +74,16 @@ function MostPlayed() {
               <a href="producto.html">Ver todos</a>
             </div>
           </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=warframe">
-                  <img
-                    src="assets/images/warframe-hero.jpg"
-                    alt="Portada de Warframe"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Acción</span>
-                <h4>Warframe</h4>
-                <a href="detalle-producto.html?id=warframe">Explorar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=pubg-battlegrounds">
-                  <img
-                    src="assets/images/pubg-battlegrounds-hero.jpg"
-                    alt="Portada de PUBG Battlegrounds"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Battle Royale</span>
-                <h4>PUBG Battlegrounds</h4>
-                <a href="detalle-producto.html?id=pubg-battlegrounds">
-                  Explorar
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=rocket-league">
-                  <img
-                    src="assets/images/rocket-league-hero.jpg"
-                    alt="Portada de Rocket League"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Deportes</span>
-                <h4>Rocket League</h4>
-                <a href="detalle-producto.html?id=rocket-league">Explorar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=dead-by-daylight">
-                  <img
-                    src="assets/images/dead-by-daylight-hero.jpg"
-                    alt="Portada de Dead by Daylight"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Terror</span>
-                <h4>Dead by Daylight</h4>
-                <a href="detalle-producto.html?id=dead-by-daylight">Explorar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=brawlhalla">
-                  <img
-                    src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/291550/library_hero.jpg"
-                    alt="Portada de Brawlhalla"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Lucha</span>
-                <h4>Brawlhalla</h4>
-                <a href="detalle-producto.html?id=brawlhalla">Explorar</a>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-2 col-md-6 col-sm-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=hollow-knight">
-                  <img
-                    src="https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/367520/library_hero.jpg"
-                    alt="Portada de Hollow Knight"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <span className="category">Metroidvania</span>
-                <h4>Hollow Knight</h4>
-                <a href="detalle-producto.html?id=hollow-knight">Explorar</a>
-              </div>
-            </div>
-          </div>
+          {juegos.map((juego) => (
+            <TarjetaJuego
+              key={juego.id}
+              id={juego.id}
+              nombre={juego.nombre}
+              categoria={juego.categoria}
+              imagen={juego.imagen}    
+            />
+          ))}
+
         </div>
       </div>
     </section>
