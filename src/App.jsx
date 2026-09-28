@@ -28,7 +28,7 @@ function App() {
         <Features />
         <Trending />
         <MostPlayed />
-        <Categories /> 
+        <Categories />
         <Cta />
       </main>
       <Footer />
