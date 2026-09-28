@@ -12,7 +12,6 @@ function Header() {
                   style={{ width: "200px" }}
                 />
               </a>
-
               <ul className="nav">
                 <li>
                   <a href="index.html">Inicio</a>
