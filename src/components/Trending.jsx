@@ -1,3 +1,51 @@
+const tendencia = [
+  {
+    id: "gta-6",
+    titulo: "Reserva GTA 6",
+    nombre: "Grand Theft Auto VI",
+    imagen: "assets/images/gta6.jpg",
+  },
+  {
+    id: "resident-evil-requiem",
+    titulo: "Resident Evil Requiem",
+    nombre: "Resident Evil Requiem",
+    imagen: "assets/images/resident-evil-requiem.jpg",
+  },
+  {
+    id: "blood-of-dawnwalker",
+    titulo: "The Blood of Dawnwalker",
+    nombre: "The Blood of Dawnwalker",
+    imagen: "assets/images/blood-of-dawnwalker.jpg",
+  },
+  {
+    id: "subnautica-2",
+    titulo: "Subnautica 2",
+    nombre: "Subnautica 2",
+    imagen: "assets/images/subnautica2.jpg",
+  },
+];
+
+function TarjetaTendencias({ id, titulo, nombre, imagen, posicion }) {
+  return (
+    <div className="col-lg-3 col-md-6">
+      <div className="item">
+        <div className="thumb">
+          <a href={`detalle-producto.html?id=${id}`}>
+            <img
+              src={imagen}
+              alt={`Portada de ${nombre}`}
+              style={{ objectPosition: posicion }}
+            />
+          </a>
+        </div>
+        <div className="down-content">
+          <h4>{`${titulo}`}</h4>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Trending() {
   return (
     <section className="section trending">
@@ -11,70 +59,19 @@ function Trending() {
           </div>
           <div className="col-lg-6">
             <div className="main-button">
-              <a href="producto.html">Ver todos</a>
+              <a href="producto.html">Ver Todos</a>
             </div>
           </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=gta-6">
-                  <img
-                    src="assets/images/gta6.jpg"
-                    alt="Portada de Grand Theft Auto VI"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <h4>Reserva GTA 6</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=resident-evil-requiem">
-                  <img
-                    src="assets/images/resident-evil-requiem.jpg"
-                    alt="Portada de Resident Evil Requiem"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <h4>Resident Evil Requiem</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=blood-of-dawnwalker">
-                  <img
-                    src="assets/images/blood-of-dawnwalker.jpg"
-                    alt="Portada de The Blood of Dawnwalker"
-                    style={{ objectPosition: "35% center" }}
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <h4>The Blood of Dawnwalker</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-lg-3 col-md-6">
-            <div className="item">
-              <div className="thumb">
-                <a href="detalle-producto.html?id=subnautica-2">
-                  <img
-                    src="assets/images/subnautica2.jpg"
-                    alt="Portada de Subnautica 2"
-                  />
-                </a>
-              </div>
-              <div className="down-content">
-                <h4>Subnautica 2</h4>
-              </div>
-            </div>
-          </div>
+          {tendencia.map((trending) => (
+            <TarjetaTendencias
+              key={trending.id}
+              titulo={trending.titulo}
+              nombre={trending.nombre}
+              imagen={trending.imagen}
+              posicion = {trending.posicion}
+            />
+          ))}
+
         </div>
       </div>
     </section>
