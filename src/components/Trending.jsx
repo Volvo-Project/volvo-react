@@ -1,32 +1,10 @@
-const tendencia = [
-  {
-    id: "gta-6",
-    titulo: "Reserva GTA 6",
-    nombre: "Grand Theft Auto VI",
-    imagen: "assets/images/gta6.jpg",
-  },
-  {
-    id: "resident-evil-requiem",
-    titulo: "Resident Evil Requiem",
-    nombre: "Resident Evil Requiem",
-    imagen: "assets/images/resident-evil-requiem.jpg",
-  },
-  {
-    id: "blood-of-dawnwalker",
-    titulo: "The Blood of Dawnwalker",
-    nombre: "The Blood of Dawnwalker",
-    imagen: "assets/images/blood-of-dawnwalker.jpg",
-    posicion: "35% center",
-  },
-  {
-    id: "subnautica-2",
-    titulo: "Subnautica 2",
-    nombre: "Subnautica 2",
-    imagen: "assets/images/subnautica2.jpg",
-  },
-];
+import productos from "../data/productos";
 
-function TarjetaTendencias({ id, titulo, nombre, imagen, posicion }) {
+const idsTendencia = ["gta-6", "resident-evil-requiem", "blood-of-dawnwalker", "subnautica-2"];
+
+const tendencias = productos.filter((producto) => idsTendencia.includes(producto.id));
+
+function TarjetaTendencias({ id, nombre, imagen, posicion }) {
   return (
     <div className="col-lg-3 col-md-6">
       <div className="item">
@@ -40,7 +18,7 @@ function TarjetaTendencias({ id, titulo, nombre, imagen, posicion }) {
           </a>
         </div>
         <div className="down-content">
-          <h4>{titulo}</h4>
+          <h4>{nombre}</h4>
         </div>
       </div>
     </div>
@@ -63,14 +41,13 @@ function Trending() {
               <a href="producto.html">Ver todos</a>
             </div>
           </div>
-          {tendencia.map((trending) => (
+          {tendencias.map((trending) => (
             <TarjetaTendencias
               key={trending.id}
               id={trending.id}
-              titulo={trending.titulo}
               nombre={trending.nombre}
               imagen={trending.imagen}
-              posicion={trending.posicion}
+              posicion={trending.posicionCard}
             />
           ))}
         </div>
