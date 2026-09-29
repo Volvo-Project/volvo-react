@@ -16,6 +16,7 @@ const tendencia = [
     titulo: "The Blood of Dawnwalker",
     nombre: "The Blood of Dawnwalker",
     imagen: "assets/images/blood-of-dawnwalker.jpg",
+    posicion: "35% center"
   },
   {
     id: "subnautica-2",
@@ -65,13 +66,13 @@ function Trending() {
           {tendencia.map((trending) => (
             <TarjetaTendencias
               key={trending.id}
+              id = {trending.id}
               titulo={trending.titulo}
               nombre={trending.nombre}
               imagen={trending.imagen}
               posicion = {trending.posicion}
             />
           ))}
-
         </div>
       </div>
     </section>
