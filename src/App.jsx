@@ -1,3 +1,5 @@
+import { Link, Route, Routes } from "react-router";
+
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import Banner from "./components/Banner.jsx";
@@ -6,7 +8,11 @@ import Trending from "./components/Trending.jsx";
 import MostPlayed from "./components/MostPlayed.jsx";
 import Categories from "./components/Categories.jsx";
 import Cta from "./components/Cta.jsx";
+import { useState } from "react";
+import Producto from "./components/Producto.jsx";
 
+
+//falta configurar las rutas
 function App() {
   return (
     <>
@@ -24,7 +30,11 @@ function App() {
     */}
       <Header />
       <main>
-        <Banner />
+        <Routes>
+          <Route path="/" element={<Banner />} />
+          <Route path="/producto" element={<Producto/>} />
+
+        </Routes>
         <Features />
         <Trending />
         <MostPlayed />
