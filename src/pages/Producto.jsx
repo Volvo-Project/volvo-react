@@ -57,8 +57,7 @@ function Producto() {
               className="pagination"
               aria-label="Paginación de productos"
             ></ul>
-          </div>
-        </div>
+          </div></div>
       </div>
       </section>
     </>

@@ -1,10 +1,9 @@
-import { Route, Routes} from "react-router-dom"
+import { Route, Routes } from "react-router-dom";
 
 import Footer from "./components/Footer.jsx";
 import Header from "./components/Header.jsx";
 import Inicio from "./pages/Inicio.jsx";
 import Producto from "./pages/Producto.jsx";
-
 
 function App() {
   return (
@@ -25,7 +24,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Inicio />} />
-          <Route path="/producto" element={<Producto/>} />
+          <Route path="/producto" element={<Producto />} />
         </Routes>
       </main>
       <Footer />

@@ -15,9 +15,6 @@ function Inicio() {
       <MostPlayed />
       <Categories />
       <Cta />
-
-
-
     </>
   )
 }

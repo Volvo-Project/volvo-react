@@ -7,7 +7,7 @@ function Header() {
         <div className="row">
           <div className="col-12">
             <nav className="main-nav">
-              <Link to = "/" className="logo">
+              <Link to="/" className="logo">
                 <img
                   src="assets/images/volvo logo.png"
                   alt="Logo volvo"
