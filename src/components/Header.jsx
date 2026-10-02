@@ -1,8 +1,29 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
+  const [conFondo, setConFondo] = useState(false);
+
+  useEffect(() => {
+    function alHacerScroll() {
+      const caja = document.querySelector(".header-text");
+      const header = document.querySelector("header");
+
+      if (!caja || !header) return;
+
+      setConFondo(window.scrollY >= caja.offsetHeight - header.offsetHeight);
+    }
+
+    alHacerScroll();
+    window.addEventListener("scroll", alHacerScroll);
+
+    return () => window.removeEventListener("scroll", alHacerScroll);
+  }, []);
+
   return (
-    <header className="header-area header-sticky">
+    <header
+      className={`header-area header-sticky ${conFondo ? "background-header" : ""}`}
+    >
       <div className="container">
         <div className="row">
           <div className="col-12">
