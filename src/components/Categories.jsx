@@ -2,27 +2,27 @@ const categorias = [
   {
     filtro: "acc",
     nombre: "Acción",
-    imagen: "assets/images/apex-legends.jpg",
+    imagen: "/assets/images/apex-legends.jpg",
   },
   {
     filtro: "avn",
     nombre: "Aventura",
-    imagen: "assets/images/lost-ark.jpg",
+    imagen: "/assets/images/lost-ark.jpg",
   },
   {
     filtro: "hor",
     nombre: "Terror",
-    imagen: "assets/images/resident-evil-requiem.jpg",
+    imagen: "/assets/images/resident-evil-requiem.jpg",
   },
   {
     filtro: "est",
     nombre: "Estrategia",
-    imagen: "assets/images/age-of-empires-4.jpg",
+    imagen: "/assets/images/age-of-empires-4.jpg",
   },
   {
     filtro: "sim",
     nombre: "Simulación y deportes",
-    imagen: "assets/images/rocket-league.jpg",
+    imagen: "/assets/images/rocket-league.jpg",
   },
 ];
 

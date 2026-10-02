@@ -9,7 +9,7 @@ function Header() {
             <nav className="main-nav">
               <Link to="/" className="logo">
                 <img
-                  src="assets/images/volvo logo.png"
+                  src="/assets/images/volvo logo.png"
                   alt="Logo volvo"
                   style={{ width: "200px" }}
                 />

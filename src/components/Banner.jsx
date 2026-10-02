@@ -28,7 +28,7 @@ function Banner() {
             <div className="right-image">
               <a href="detalle-producto.html?id=assassins-creed">
                 <img
-                  src="assets/images/assassinscreed2.jpg"
+                  src="/assets/images/assassinscreed2.jpg"
                   alt="Portada de Assassin's Creed en oferta"
                 />
               </a>
