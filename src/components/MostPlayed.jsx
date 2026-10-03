@@ -1,5 +1,5 @@
 import productos from "../data/productos";
-
+import { Link } from "react-router-dom";
 const idsMasJugados = [
   "warframe",
   "pubg-battlegrounds",
@@ -45,7 +45,7 @@ function MostPlayed() {
           </div>
           <div className="col-lg-6">
             <div className="main-button">
-              <a href="producto.html">Ver todos</a>
+              <Link to="/producto">Ver Todos</Link>
             </div>
           </div>
           {masJugados.map((juego) => (

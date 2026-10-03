@@ -8,7 +8,7 @@ import Producto from "./pages/Producto.jsx";
 function App() {
   return (
     <>
-      {/*
+    {/*
     <div id="js-preloader" className="js-preloader">
     <div className="preloader-inner">
       <span className="dot"></span>

@@ -11,12 +11,13 @@ function Header() {
 
       if (!caja || !header) return;
 
+      // Bajé mas q el alto del banner menos el alto del header?
       setConFondo(window.scrollY >= caja.offsetHeight - header.offsetHeight);
     }
 
     alHacerScroll();
     window.addEventListener("scroll", alHacerScroll);
-
+                //cada vez q haya algun scroll ejecuta la function
     return () => window.removeEventListener("scroll", alHacerScroll);
   }, []);
 
