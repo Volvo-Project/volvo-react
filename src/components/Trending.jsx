@@ -1,4 +1,5 @@
 import productos from "../data/productos";
+import { Link } from "react-router-dom";
 
 const idsTendencia = ["gta-6", "resident-evil-requiem", "blood-of-dawnwalker", "subnautica-2"];
 
@@ -9,13 +10,13 @@ function TarjetaTendencias({ id, nombre, imagen, posicion }) {
     <div className="col-lg-3 col-md-6">
       <div className="item">
         <div className="thumb">
-          <a href={`detalle-producto.html?id=${id}`}>
+          <Link to={`/producto/${id}`}>
             <img
               src={imagen}
               alt={`Portada de ${nombre}`}
               style={{ objectPosition: posicion }}
             />
-          </a>
+          </Link>
         </div>
         <div className="down-content">
           <h4>{nombre}</h4>
@@ -38,7 +39,7 @@ function Trending() {
           </div>
           <div className="col-lg-6">
             <div className="main-button">
-              <a href="producto.html">Ver todos</a>
+              <Link to="/producto">Ver todos</Link>
             </div>
           </div>
           {tendencias.map((trending) => (

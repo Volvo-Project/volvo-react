@@ -1,21 +1,23 @@
+import { Link } from "react-router-dom";
+
 const features = [
   {
-    enlace: "nosotros.html",
+    enlace: "/nosotros",
     icono: "fa-bolt",
     titulo: "Entrega inmediata",
   },
   {
-    enlace: "contacto.html",
+    enlace: "/contacto",
     icono: "fa-headset",
     titulo: "Contáctanos",
   },
   {
-    enlace: "detalle-producto.html?id=gta-6",
+    enlace: "/producto/gta-6",
     icono: "fa-star",
     titulo: "Novedades",
   },
   {
-    enlace: "blogs.html",
+    enlace: "/blogs",
     icono: "fa-newspaper",
     titulo: "Blog",
   },
@@ -24,14 +26,14 @@ const features = [
 function TarjetaFeatures({ enlace, icono, titulo }) {
   return (
     <div className="col-lg-3 col-md-6">
-      <a href={enlace}>
+      <Link to={enlace}>
         <div className="item">
           <div className="image">
             <i className={`fa-solid ${icono}`} aria-hidden="true"></i>
           </div>
           <h4>{titulo}</h4>
         </div>
-      </a>
+      </Link>
     </div>
   );
 }

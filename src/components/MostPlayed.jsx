@@ -18,14 +18,14 @@ function TarjetaJuego({ id, nombre, categoria, imagen }) {
     <div className="col-lg-2 col-md-6 col-sm-6">
       <div className="item">
         <div className="thumb">
-          <a href={`detalle-producto.html?id=${id}`}>
+          <Link to={`/producto/${id}`}>
             <img src={imagen} alt={`Portada de ${nombre}`} />
-          </a>
+          </Link>
         </div>
         <div className="down-content">
           <span className="category">{categoria}</span>
           <h4>{nombre}</h4>
-          <a href={`detalle-producto.html?id=${id}`}>Explorar</a>
+          <Link to={`/producto/${id}`}>Explorar</Link>
         </div>
       </div>
     </div>

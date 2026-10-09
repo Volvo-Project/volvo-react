@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const categorias = [
   {
     filtro: "acc",
@@ -31,9 +33,9 @@ function TarjetaCategoria({ filtro, nombre, imagen }) {
     <div className="col-lg col-sm-6 col-xs-12">
       <div className="item">
         <div className="thumb">
-          <a href={`producto.html?filtro=${filtro}`}>
+          <Link to={`/producto?filtro=${filtro}`}>
             <img src={imagen} alt={`Categoría ${nombre}`} />
-          </a>
+          </Link>
           <span className="category-caption">{nombre}</span>
         </div>
       </div>

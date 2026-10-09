@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Banner() {
   //locura
@@ -42,12 +42,12 @@ function Banner() {
           </div>
           <div className="col-lg-4 offset-lg-2">
             <div className="right-image">
-              <a href="detalle-producto.html?id=assassins-creed">
+              <Link to="/producto/assassins-creed">
                 <img
                   src="/assets/images/assassinscreed2.jpg"
                   alt="Portada de Assassin's Creed en oferta"
                 />
-              </a>
+              </Link>
               <span className="precio">$19.990</span>
               <span className="oferta">-50%</span>
             </div>

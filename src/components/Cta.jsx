@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Cta() {
   return (
     <section className="section cta">
@@ -19,7 +21,7 @@ function Cta() {
                     descuentos exclusivos por tiempo limitado.
                   </p>
                   <div className="main-button">
-                    <a href="producto.html">Comprar Ahora</a>
+                    <Link to="/producto">Comprar Ahora</Link>
                   </div>
                 </div>
               </div>
