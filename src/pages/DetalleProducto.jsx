@@ -7,12 +7,27 @@ function DetalleProducto() {
 
   if (!producto) {
     return (
-      <div className="container section">
-        <h2>Producto no encontrado</h2>
-        <Link to="/producto">Volver a la tienda</Link>
+      <div className="page-heading header-text">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <h1>Producto no encontrado</h1>
+              <span className="breadcrumb">
+                <Link to="/producto">Volver a la tienda</Link>
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
+
+  function manejarSubmit(e) {
+    // Igual que carrito.js:38: evita que el form recargue la página.
+    // Agregar al carrito de verdad queda para el paso 4.
+    e.preventDefault();
+  }
+
   return (
     <>
       <div className="page-heading header-text">
@@ -47,7 +62,7 @@ function DetalleProducto() {
                 {producto.esGratis ? "Gratis" : `$${producto.precio.toLocaleString("es-CL")}`}
               </span>
               <p>{producto.descripcion}</p>
-              <form noValidate>
+              <form noValidate onSubmit={manejarSubmit}>
                 <label htmlFor="cantidad" className="visually-hidden">
                   Cantidad a comprar
                 </label>
