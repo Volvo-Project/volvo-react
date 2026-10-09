@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import productos from "../data/productos";
 
 function TarjetaCatalogo({
@@ -38,6 +38,12 @@ function TarjetaCatalogo({
 }
 
 function Producto() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const busqueda = searchParams.get("buscar") ?? "";
+
+  const productosFiltrados = productos.filter((producto) =>
+    producto.nombre.toLowerCase().includes(busqueda.toLowerCase()),
+  );
   return (
     <>
       <div className="page-heading header-text">
@@ -56,6 +62,23 @@ function Producto() {
         <div className="container">
           <h2 className="visually-hidden">Catálogo de juegos</h2>
           <div id="busqueda-info"></div>
+          <div className="row justify-content-center mb-4">
+            <div className="col-lg-6">
+              <input
+                type="search"
+                className="form-control"
+                placeholder="Busca tu juego"
+                aria-label="Buscar juego"
+                value={busqueda}
+                onChange={(e) => {
+                  const texto = e.target.value;
+                  setSearchParams(texto ? { buscar: texto } : {}, {
+                    replace: true,
+                  });
+                }}
+              />
+            </div>
+          </div>
           <ul className="trending-filter">
             <li>
               <a className="is_active" href="producto.html" data-filter="*">
@@ -89,7 +112,7 @@ function Producto() {
             </li>
           </ul>
           <div className="row trending-box">
-            {productos.map((producto) => (
+            {productosFiltrados.map((producto) => (
               <TarjetaCatalogo
                 key={producto.id}
                 id={producto.id}

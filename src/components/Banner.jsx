@@ -1,4 +1,19 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Banner() {
+  //locura
+  const [texto, setTexto] = useState("");
+  const navigate = useNavigate();
+
+  function buscar(e) {
+    e.preventDefault();
+    const termino = texto.trim();
+    navigate(
+      termino ? `/producto?buscar=${encodeURIComponent(termino)}` : "/producto",
+    );
+  }
+
   return (
     <div className="main-banner">
       <div className="container">
@@ -11,13 +26,14 @@ function Banner() {
               </h1>
               <p>Encuentra un catalogo extendido de videojuegos</p>
               <div className="search-input">
-                <form id="search" action="producto.html" method="get">
+                <form onSubmit={buscar}>
                   <input
                     type="text"
                     placeholder="Busca tu juego"
-                    id="searchText"
-                    name="buscar"
+                    aria-label="Buscar juego"
                     autoComplete="off"
+                    value={texto}
+                    onChange={(e) => setTexto(e.target.value)}
                   />
                   <button type="submit">Buscar ahora</button>
                 </form>
