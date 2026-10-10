@@ -5,7 +5,6 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import DetalleProducto from '../pages/DetalleProducto'
 import productos from '../data/productos'
 
-// Simula entrar a /producto/<id> y deja que useParams lea el id de la URL.
 const renderizarEn = (ruta) =>
   render(
     <MemoryRouter initialEntries={[ruta]}>

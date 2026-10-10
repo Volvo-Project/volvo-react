@@ -3,8 +3,6 @@ import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Producto from '../pages/Producto'
 
-// MOCK: reemplazamos el archivo de datos real por 2 productos controlados.
-// Así la prueba no depende de los 23 juegos reales y sabemos exactamente qué esperar.
 vi.mock('../data/productos', () => ({
   default: [
     { id: 'a', nombre: 'Juego A', categoria: 'Acción', imagen: '/a.jpg', posicionCard: '0%', precio: 12990, esGratis: false },

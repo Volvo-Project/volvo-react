@@ -3,8 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Header from '../components/Header'
 
-// jsdom no calcula tamaños reales, así que simulamos (mock) offsetHeight:
-// la caja .header-text mide 500 y el header 80.
+
 beforeAll(() => {
   Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
     configurable: true,
