@@ -1,6 +1,15 @@
 import { Link, useSearchParams } from "react-router-dom";
 import productos from "../data/productos";
 
+const CATEGORIAS = [
+  ["", "Ver Todo"],
+  ["acc", "Acción"],
+  ["avn", "Aventura"],
+  ["hor", "Terror"],
+  ["est", "Estrategia"],
+  ["sim", "Simulación y deportes"],
+];
+
 function TarjetaCatalogo({
   id,
   nombre,
@@ -40,10 +49,23 @@ function TarjetaCatalogo({
 function Producto() {
   const [searchParams, setSearchParams] = useSearchParams();
   const busqueda = searchParams.get("buscar") ?? "";
+  const filtro = searchParams.get("filtro") ?? "";
 
-  const productosFiltrados = productos.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase()),
+  // Un juego se muestra si coincide con la búsqueda Y con la categoría elegida.
+  const productosFiltrados = productos.filter(
+    (producto) =>
+      producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) &&
+      (filtro === "" || producto.filtro === filtro),
   );
+
+  // Arma el link de cada categoría conservando lo que se escribió en el buscador.
+  function enlaceFiltro(codigo) {
+    const params = new URLSearchParams();
+    if (busqueda) params.set("buscar", busqueda);
+    if (codigo) params.set("filtro", codigo);
+    const texto = params.toString();
+    return texto ? `/producto?${texto}` : "/producto";
+  }
   return (
     <>
       <div className="page-heading header-text">
@@ -72,44 +94,25 @@ function Producto() {
                 value={busqueda}
                 onChange={(e) => {
                   const texto = e.target.value;
-                  setSearchParams(texto ? { buscar: texto } : {}, {
-                    replace: true,
-                  });
+                  const params = {};
+                  if (texto) params.buscar = texto;
+                  if (filtro) params.filtro = filtro;
+                  setSearchParams(params, { replace: true });
                 }}
               />
             </div>
           </div>
           <ul className="trending-filter">
-            <li>
-              <a className="is_active" href="producto.html" data-filter="*">
-                Ver Todo
-              </a>
-            </li>
-            <li>
-              <a href="producto.html?filtro=acc" data-filter="acc">
-                Acción
-              </a>
-            </li>
-            <li>
-              <a href="producto.html?filtro=avn" data-filter="avn">
-                Aventura
-              </a>
-            </li>
-            <li>
-              <a href="producto.html?filtro=hor" data-filter="hor">
-                Terror
-              </a>
-            </li>
-            <li>
-              <a href="producto.html?filtro=est" data-filter="est">
-                Estrategia
-              </a>
-            </li>
-            <li>
-              <a href="producto.html?filtro=sim" data-filter="sim">
-                Simulación y deportes
-              </a>
-            </li>
+            {CATEGORIAS.map(([codigo, texto]) => (
+              <li key={codigo}>
+                <Link
+                  className={filtro === codigo ? "is_active" : ""}
+                  to={enlaceFiltro(codigo)}
+                >
+                  {texto}
+                </Link>
+              </li>
+            ))}
           </ul>
           <div className="row trending-box">
             {productosFiltrados.map((producto) => (
