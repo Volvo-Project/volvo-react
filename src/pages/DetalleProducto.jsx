@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import productos from "../data/productos";
+import { Tab, Tabs } from "react-bootstrap";
 
 function DetalleProducto() {
   const { id } = useParams();
@@ -21,6 +22,7 @@ function DetalleProducto() {
       </div>
     );
   }
+  const opiniones = producto.opiniones || [];
 
   function manejarSubmit(e) {
     // Igual que carrito.js:38: evita que el form recargue la página.
@@ -102,6 +104,65 @@ function DetalleProducto() {
           </div>
         </div>
       </div>
+      {producto.trailer && (
+        <section className="trailer section">
+          <div className="container">
+            <div className="row">
+              <div className="col-lg-12">
+                <h2>Tráiler</h2>
+                <div className="video-wrapper">
+                  <iframe
+                    src={`${producto.trailer}?autoplay=1&mute=1`}
+                    title={`Tráiler de ${producto.nombre}`}
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      <div className="more-info">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12">
+              <div className="tabs-content">
+                <Tabs defaultActiveKey="descripcion">
+                  <Tab eventKey="descripcion" title="Descripción">
+                    <p>Volvo Tienda de Videojuegos te trae este título con envío rápido y soporte postventa. Revisa los
+                      requisitos del sistema y las condiciones de la promoción antes de comprar.</p>
+                    <br />
+                    <p>Este producto cuenta con garantía de cambio ante fallas de activación y acceso a nuestra comunidad
+                      de jugadores para resolver dudas técnicas.</p>
+                  </Tab>
+                  <Tab eventKey="opiniones" title= 
+                  {`Opiniones (${opiniones.length})`}>                                        {opiniones.length === 0
+                    ? <p>Este producto todavía no tiene opiniones.</p>
+                    : opiniones.map((opinion) => {
+                      const estrellas = "★".repeat(opinion.nota) + "☆".repeat(5 - opinion.nota);
+                      return (
+                        <article key={opinion.autor} className="opinion">
+                          <div className="opinion-cabecera">
+                            <h5>{opinion.autor}</h5>
+                            <span className="opinion-estrellas" aria-label={`${opinion.nota} de 5 estrellas`}>
+                              {estrellas}
+                            </span>
+                          </div>
+                          <p>{opinion.texto}</p>
+                        </article>
+                      );
+                    })
+                  }
+                  </Tab>
+                </Tabs>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </>
   );
 }
