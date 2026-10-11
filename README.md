@@ -1,6 +1,6 @@
 # Volvo React
 
-Migración a React de [volvo-web](https://github.com/Volvo-Project/volvo-web)
+Migración a React de [volvo-web](https://github.com/Volvo-Project/volvo-html)
 
 ---
 
