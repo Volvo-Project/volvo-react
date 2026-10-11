@@ -73,6 +73,18 @@ function Producto() {
     const texto = params.toString();
     return texto ? `/producto?${texto}` : "/producto";
   }
+
+  // Arma el link de cada página conservando la búsqueda y la categoría.
+  function enlacePagina(numero) {
+    const params = new URLSearchParams();
+    if (busqueda) params.set("buscar", busqueda);
+    if (filtro) params.set("filtro", filtro);
+    if (numero > 1) params.set("pagina", numero);
+
+    const texto = params.toString();
+    return texto ? `/producto?${texto}` : "/producto";
+  }
+
   return (
     <>
       <div className="page-heading header-text">
@@ -141,7 +153,24 @@ function Producto() {
                 id="paginacion-productos"
                 className="pagination"
                 aria-label="Paginación de productos"
-              ></ul>
+              >
+                <li>
+                  <Link to={enlacePagina(Math.max(1, paginaActual - 1))}>&lt;</Link>
+                </li>
+                {Array.from({ length: totalPaginas }, (_, i) => i + 1).map((numero) => (
+                  <li key={numero}>
+                    <Link
+                      to={enlacePagina(numero)}
+                      className={numero === paginaActual ? "is_active" : ""}
+                    >
+                      {numero}
+                    </Link>
+                  </li>
+                ))}
+                <li>
+                  <Link to={enlacePagina(Math.min(totalPaginas, paginaActual + 1))}>&gt;</Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
