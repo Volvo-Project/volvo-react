@@ -4,13 +4,16 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import DetalleProducto from '../pages/DetalleProducto'
 import productos from '../data/productos'
+import { CarritoProvider } from '../context/CarritoContext'
 
 const renderizarEn = (ruta) =>
   render(
     <MemoryRouter initialEntries={[ruta]}>
-      <Routes>
-        <Route path="/producto/:id" element={<DetalleProducto />} />
-      </Routes>
+      <CarritoProvider>
+        <Routes>
+          <Route path="/producto/:id" element={<DetalleProducto />} />
+        </Routes>
+      </CarritoProvider>
     </MemoryRouter>,
   )
 
@@ -38,5 +41,27 @@ describe('Página DetalleProducto', () => {
     renderizarEn(`/producto/${p.id}`)
     await user.click(screen.getByRole('tab', { name: `Opiniones (${p.opiniones.length})` }))
     expect(screen.getByText(p.opiniones[0].autor)).toBeVisible()
+  })
+
+  it('agregar al carrito guarda el producto y muestra el aviso', async () => {
+    const user = userEvent.setup()
+    const p = productos[1]
+    renderizarEn(`/producto/${p.id}`)
+    await user.click(screen.getByRole('button', { name: /agregar al carrito/i }))
+    expect(screen.getByText('Producto agregado al carrito')).toBeInTheDocument()
+    const guardado = JSON.parse(localStorage.getItem('carrito'))
+    expect(guardado).toHaveLength(1)
+    expect(guardado[0]).toMatchObject({ id: p.id, cantidad: 1 })
+  })
+
+  it('una cantidad inválida muestra error y no agrega nada', async () => {
+    const user = userEvent.setup()
+    renderizarEn(`/producto/${productos[1].id}`)
+    const cantidad = screen.getByLabelText('Cantidad a comprar')
+    await user.clear(cantidad)
+    await user.type(cantidad, '0')
+    await user.click(screen.getByRole('button', { name: /agregar al carrito/i }))
+    expect(screen.getByText('La cantidad debe ser un número entero mayor a 0')).toBeInTheDocument()
+    expect(JSON.parse(localStorage.getItem('carrito'))).toHaveLength(0)
   })
 })

@@ -2,6 +2,7 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import Header from '../components/Header'
+import { CarritoProvider } from '../context/CarritoContext'
 
 
 beforeAll(() => {
@@ -19,8 +20,10 @@ afterAll(() => {
 function renderizarHeader() {
   return render(
     <MemoryRouter>
-      <div className="header-text" />
-      <Header />
+      <CarritoProvider>
+        <div className="header-text" />
+        <Header />
+      </CarritoProvider>
     </MemoryRouter>,
   )
 }
@@ -47,5 +50,19 @@ describe('Header', () => {
     renderizarHeader()
     simularScroll(1000)
     expect(screen.getByRole('banner')).toHaveClass('background-header')
+  })
+
+  it('el contador del carrito suma las cantidades guardadas', () => {
+    localStorage.setItem('carrito', JSON.stringify([
+      { id: 'a', nombre: 'A', precio: 1000, cantidad: 2 },
+      { id: 'b', nombre: 'B', precio: 500, cantidad: 3 },
+    ]))
+    renderizarHeader()
+    expect(screen.getByText('5')).toBeVisible()
+  })
+
+  it('el contador está oculto si el carrito está vacío', () => {
+    renderizarHeader()
+    expect(document.getElementById('carrito-contador')).not.toBeVisible()
   })
 })

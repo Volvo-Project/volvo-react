@@ -1,9 +1,13 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useCarrito } from "../context/CarritoContext";
 import productos from "../data/productos";
 import { Tab, Tabs } from "react-bootstrap";
 
 function DetalleProducto() {
   const { id } = useParams();
+  const { agregar } = useCarrito();
+  const [aviso, setAviso] = useState(null);
   const producto = productos.find((p) => p.id === id);
 
   if (!producto) {
@@ -25,9 +29,14 @@ function DetalleProducto() {
   const opiniones = producto.opiniones || [];
 
   function manejarSubmit(e) {
-    // Igual que carrito.js:38: evita que el form recargue la página.
-    // Agregar al carrito de verdad queda para el paso 4.
-    e.preventDefault();
+    e.preventDefault(); // evita que el form recargue la página
+    const cantidad = Number(e.target.elements.cantidad.value);
+    if (!Number.isInteger(cantidad) || cantidad <= 0) {
+      setAviso({ tipo: "avisoerror", texto: "La cantidad debe ser un número entero mayor a 0" });
+      return;
+    }
+    agregar(producto, cantidad);
+    setAviso({ tipo: "aviso", texto: "Producto agregado al carrito" });
   }
 
   return (
@@ -82,7 +91,7 @@ function DetalleProducto() {
                   <i className="fa fa-shopping-bag"></i> AGREGAR AL CARRITO
                 </button>
               </form>
-              <p className="aviso" hidden></p>
+              {aviso && <p className={aviso.tipo}>{aviso.texto}</p>}
               <ul>
                 <li>
                   <span>ID del Juego:</span>{" "}
