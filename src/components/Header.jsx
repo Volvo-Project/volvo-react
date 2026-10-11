@@ -17,7 +17,7 @@ function Header() {
 
     alHacerScroll();
     window.addEventListener("scroll", alHacerScroll);
-                //cada vez q haya algun scroll ejecuta la function
+    //cada vez q haya algun scroll ejecuta la function
     return () => window.removeEventListener("scroll", alHacerScroll);
   }, []);
 
@@ -44,23 +44,23 @@ function Header() {
                   <Link to="/producto">Productos</Link>
                 </li>
                 <li>
-                  <a href="nosotros.html">Nosotros</a>
+                  <Link to="/nosotros">Nosotros</Link>
                 </li>
                 <li>
-                  <a href="blogs.html">Blog</a>
+                  <Link to="/blog">Blog</Link>
                 </li>
                 <li>
-                  <a href="contacto.html">Contacto</a>
+                  <Link to="/contacto">Contacto</Link>
                 </li>
                 <li>
-                  <a href="login.html">Iniciar sesión</a>
+                  <Link to="/login">Iniciar sesión</Link>
                 </li>
                 <li>
-                  <a href="registro.html">Registrarse</a>
+                  <Link to="/registro">Registrarse</Link>
                 </li>
                 <li>
-                  <a
-                    href="carrito.html"
+                  <Link
+                    to="/carrito"
                     aria-label="Ver carrito de compras"
                     className="cart-link"
                   >
@@ -72,7 +72,7 @@ function Header() {
                     >
                       0
                     </span>
-                  </a>
+                  </Link>
                 </li>
               </ul>
               <a className="menu-trigger">

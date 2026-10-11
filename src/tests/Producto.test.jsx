@@ -13,9 +13,9 @@ const renderizar = () =>
   )
 
 describe('Página Producto (catálogo)', () => {
-  it('muestra una tarjeta por cada producto del arreglo', () => {
+  it('la primera página muestra 8 tarjetas', () => {
     renderizar()
-    expect(screen.getAllByRole('heading', { level: 4 })).toHaveLength(productos.length)
+    expect(screen.getAllByRole('heading', { level: 4 })).toHaveLength(8)
   })
 
   it('muestra "Gratis" en un juego gratuito', () => {
@@ -75,7 +75,7 @@ describe('Página Producto (catálogo)', () => {
     )
     await user.click(screen.getByRole('link', { name: 'Aventura' }))
     const esperados = productos.filter((p) => p.filtro === 'avn').length
-    expect(screen.getAllByRole('heading', { level: 4 })).toHaveLength(esperados)
+    expect(screen.getAllByRole('heading', { level: 4 })).toHaveLength(Math.min(esperados, 8))
     expect(screen.getByRole('link', { name: 'Aventura' })).toHaveClass('is_active')
   })
 })

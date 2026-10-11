@@ -10,6 +10,8 @@ const CATEGORIAS = [
   ["sim", "Simulación y deportes"],
 ];
 
+const productosPorPagina = 8;
+
 function TarjetaCatalogo({
   id,
   nombre,
@@ -50,6 +52,7 @@ function Producto() {
   const [searchParams, setSearchParams] = useSearchParams();
   const busqueda = searchParams.get("buscar") ?? "";
   const filtro = searchParams.get("filtro") ?? "";
+  const paginaSolicitada = Number.parseInt(searchParams.get("pagina") ?? "1", 10);
 
   // Un juego se muestra si coincide con la búsqueda Y con la categoría elegida.
   const productosFiltrados = productos.filter(
@@ -57,6 +60,10 @@ function Producto() {
       producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) &&
       (filtro === "" || producto.filtro === filtro),
   );
+  const totalPaginas = Math.max(1, Math.ceil(productosFiltrados.length / productosPorPagina));
+  const paginaActual = Math.min(Math.max(Number.isNaN(paginaSolicitada) ? 1 : paginaSolicitada, 1), totalPaginas);
+  const inicio = (paginaActual - 1) * productosPorPagina;
+  const productosDePagina = productosFiltrados.slice(inicio, inicio + productosPorPagina);
 
   // Arma el link de cada categoría conservando lo que se escribió en el buscador.
   function enlaceFiltro(codigo) {
@@ -115,7 +122,7 @@ function Producto() {
             ))}
           </ul>
           <div className="row trending-box">
-            {productosFiltrados.map((producto) => (
+            {productosDePagina.map((producto) => (
               <TarjetaCatalogo
                 key={producto.id}
                 id={producto.id}

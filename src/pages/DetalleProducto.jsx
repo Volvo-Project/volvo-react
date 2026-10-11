@@ -137,24 +137,25 @@ function DetalleProducto() {
                     <p>Este producto cuenta con garantía de cambio ante fallas de activación y acceso a nuestra comunidad
                       de jugadores para resolver dudas técnicas.</p>
                   </Tab>
-                  <Tab eventKey="opiniones" title= 
-                  {`Opiniones (${opiniones.length})`}>                                        {opiniones.length === 0
-                    ? <p>Este producto todavía no tiene opiniones.</p>
-                    : opiniones.map((opinion) => {
-                      const estrellas = "★".repeat(opinion.nota) + "☆".repeat(5 - opinion.nota);
-                      return (
-                        <article key={opinion.autor} className="opinion">
-                          <div className="opinion-cabecera">
-                            <h5>{opinion.autor}</h5>
-                            <span className="opinion-estrellas" aria-label={`${opinion.nota} de 5 estrellas`}>
-                              {estrellas}
-                            </span>
-                          </div>
-                          <p>{opinion.texto}</p>
-                        </article>
-                      );
-                    })
-                  }
+                  <Tab eventKey="opiniones"
+                    title={`Opiniones (${opiniones.length})`}>
+                    {opiniones.length === 0
+                      ? <p>Este producto todavía no tiene opiniones.</p>
+                      : opiniones.map((opinion) => {
+                        const estrellas = "★".repeat(opinion.nota) + "☆".repeat(5 - opinion.nota);
+                        return (
+                          <article key={opinion.autor} className="opinion">
+                            <div className="opinion-cabecera">
+                              <h5>{opinion.autor}</h5>
+                              <span className="opinion-estrellas" aria-label={`${opinion.nota} de 5 estrellas`}>
+                                {estrellas}
+                              </span>
+                            </div>
+                            <p>{opinion.texto}</p>
+                          </article>
+                        );
+                      })
+                    }
                   </Tab>
                 </Tabs>
               </div>
