@@ -8,11 +8,14 @@ import './styles/estilos.css'
 
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
+import { CarritoProvider } from './context/CarritoContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <App />
+      <CarritoProvider>
+        <App />
+      </CarritoProvider>
     </BrowserRouter>
   </StrictMode>,
 )

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useCarrito } from "../context/CarritoContext";
 
 function Header() {
   const [conFondo, setConFondo] = useState(false);
+  const { totalItems } = useCarrito();
 
   useEffect(() => {
     function alHacerScroll() {
@@ -47,7 +49,7 @@ function Header() {
                   <Link to="/nosotros">Nosotros</Link>
                 </li>
                 <li>
-                  <Link to="/blog">Blog</Link>
+                  <Link to="/blogs">Blog</Link>
                 </li>
                 <li>
                   <Link to="/contacto">Contacto</Link>
@@ -68,9 +70,9 @@ function Header() {
                     <span
                       id="carrito-contador"
                       className="carrito-contador"
-                      hidden
+                      hidden={totalItems === 0}
                     >
-                      0
+                      {totalItems}
                     </span>
                   </Link>
                 </li>
