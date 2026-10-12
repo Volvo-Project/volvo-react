@@ -91,7 +91,7 @@ function Producto() {
         <div className="container">
           <div className="row">
             <div className="col-lg-12">
-              <h1>Nuestra Tienda Volvo</h1>
+              <h1>Nuestra Tienda </h1>
               <span className="breadcrumb">
                 <Link to="/">Inicio</Link> &gt; Tienda
               </span>
