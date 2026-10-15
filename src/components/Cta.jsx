@@ -5,7 +5,7 @@ function Cta() {
     <section className="section cta">
       <div className="container">
         <div className="row">
-          <div className="col-lg-5">
+          <div className="col-lg-4">
             <div className="shop">
               <div className="row">
                 <div className="col-lg-12">
@@ -27,7 +27,7 @@ function Cta() {
               </div>
             </div>
           </div>
-          <div className="col-lg-5 offset-lg-2 align-self-end">
+          <div className="col-lg-4 offset-lg-4 align-self-end">
             <div className="subscribe">
               <div className="row">
                 <div className="col-lg-12">

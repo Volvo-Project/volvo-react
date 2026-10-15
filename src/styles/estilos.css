@@ -913,3 +913,18 @@ body {
 .catalogo{
   margin-top: 60px;
 }
+
+/*Otro más pero para las tarjeta de la imagen q esta en el Cta.jsx*/
+@media (min-width: 992px){
+  .cta .shop,
+   .cta .subscribe{
+    padding: 50px 40px;  
+  }
+
+  .cta .subscribe form button{
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+}
