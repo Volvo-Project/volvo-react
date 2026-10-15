@@ -111,7 +111,7 @@ function Producto() {
           </div>
         </div>
       </div>
-      <section className="section trending">
+      <section className="section trending catalogo">
         <div className="container">
           <h2 className="visually-hidden">Catálogo de juegos</h2>
           {busqueda && (
@@ -124,9 +124,10 @@ function Producto() {
           )}
           <div className="row justify-content-center mb-4">
             <div className="col-lg-6">
+              <div className="buscador-tienda">
+              <i className="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
               <input
                 type="search"
-                className="form-control"
                 placeholder="Busca tu juego"
                 aria-label="Buscar juego"
                 value={busqueda}
@@ -138,6 +139,7 @@ function Producto() {
                   setSearchParams(params, { replace: true });
                 }}
               />
+              </div>
             </div>
           </div>
           <ul className="trending-filter">
