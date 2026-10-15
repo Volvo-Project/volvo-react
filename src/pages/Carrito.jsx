@@ -1,16 +1,26 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCarrito } from "../context/CarritoContext";
+import { useSesion } from "../context/SesionContext";
 
 const dinero = (valor) => `$${valor.toLocaleString("es-CL")}`;
 
 function Carrito() {
   const { items, total, cambiarCantidad, eliminar, vaciar } = useCarrito();
+  const { sesion } = useSesion();
+  const navigate = useNavigate();
   const [mensaje, setMensaje] = useState(null);
 
   function finalizarCompra() {
     if (items.length === 0) {
       setMensaje({ tipo: "avisoerror", texto: "No tiene productos para comprar" });
+      return;
+    }
+    if (!sesion) {
+      // Sin sesión no se puede comprar: va al login y después vuelve al carrito.
+      navigate("/login", {
+        state: { volverA: "/carrito", motivo: "Inicia sesión para finalizar tu compra" },
+      });
       return;
     }
     vaciar();

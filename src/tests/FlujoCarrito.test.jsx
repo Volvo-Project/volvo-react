@@ -4,6 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import App from '../App'
 import { CarritoProvider } from '../context/CarritoContext'
+import { SesionProvider } from '../context/SesionContext'
 import productos from '../data/productos'
 
 // Prueba de flujo completo: usa la App real (rutas + Header + proveedor)
@@ -11,9 +12,11 @@ import productos from '../data/productos'
 const montarApp = (ruta) =>
   render(
     <MemoryRouter initialEntries={[ruta]}>
-      <CarritoProvider>
-        <App />
-      </CarritoProvider>
+      <SesionProvider>
+        <CarritoProvider>
+          <App />
+        </CarritoProvider>
+      </SesionProvider>
     </MemoryRouter>,
   )
 

@@ -9,13 +9,16 @@ import './styles/estilos.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { CarritoProvider } from './context/CarritoContext.jsx'
+import { SesionProvider } from './context/SesionContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-      <CarritoProvider>
-        <App />
-      </CarritoProvider>
+      <SesionProvider>
+        <CarritoProvider>
+          <App />
+        </CarritoProvider>
+      </SesionProvider>
     </BrowserRouter>
   </StrictMode>,
 )

@@ -1,17 +1,23 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter } from 'react-router-dom'
+import { MemoryRouter, Routes, Route } from 'react-router-dom'
 import Carrito from '../pages/Carrito'
 import { CarritoProvider } from '../context/CarritoContext'
+import { SesionProvider } from '../context/SesionContext'
 
 const guardar = (items) => localStorage.setItem('carrito', JSON.stringify(items))
 const renderizar = () =>
   render(
     <MemoryRouter>
-      <CarritoProvider>
-        <Carrito />
-      </CarritoProvider>
+      <SesionProvider>
+        <CarritoProvider>
+          <Routes>
+            <Route path="/" element={<Carrito />} />
+            <Route path="/login" element={<p>Pantalla de login</p>} />
+          </Routes>
+        </CarritoProvider>
+      </SesionProvider>
     </MemoryRouter>,
   )
 
@@ -69,8 +75,9 @@ describe('Página Carrito', () => {
     expect(screen.getByText('Total: $0')).toBeInTheDocument()
   })
 
-  it('Finalizar compra con productos agradece y vacía el carrito', async () => {
+  it('Finalizar compra con sesión iniciada agradece y vacía el carrito', async () => {
     const user = userEvent.setup()
+    localStorage.setItem('usuarioSesion', JSON.stringify({ nombre: 'Ana Pérez', correo: 'ana@gmail.com', rol: 'Cliente' }))
     guardar(dosJuegos)
     renderizar()
     await user.click(screen.getByRole('button', { name: 'Finalizar compra' }))
@@ -83,5 +90,23 @@ describe('Página Carrito', () => {
     renderizar()
     await user.click(screen.getByRole('button', { name: 'Finalizar compra' }))
     expect(screen.getByText('No tiene productos para comprar')).toBeInTheDocument()
+  })
+
+  it('Finalizar compra SIN sesión redirige al login y conserva el carrito', async () => {
+    const user = userEvent.setup()
+    guardar(dosJuegos)
+    renderizar()
+    await user.click(screen.getByRole('button', { name: 'Finalizar compra' }))
+    expect(screen.getByText('Pantalla de login')).toBeInTheDocument()
+    expect(screen.queryByText('Gracias por tu compra')).not.toBeInTheDocument()
+    expect(JSON.parse(localStorage.getItem('carrito'))).toHaveLength(2)
+  })
+
+  it('con el carrito vacío y sin sesión muestra el error en vez de ir al login', async () => {
+    const user = userEvent.setup()
+    renderizar()
+    await user.click(screen.getByRole('button', { name: 'Finalizar compra' }))
+    expect(screen.getByText('No tiene productos para comprar')).toBeInTheDocument()
+    expect(screen.queryByText('Pantalla de login')).not.toBeInTheDocument()
   })
 })

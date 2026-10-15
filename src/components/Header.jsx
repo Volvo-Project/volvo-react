@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCarrito } from "../context/CarritoContext";
+import { useSesion } from "../context/SesionContext";
 
 function Header() {
   const [conFondo, setConFondo] = useState(false);
   const { totalItems } = useCarrito();
+  const { sesion, cerrarSesion } = useSesion();
+  const navigate = useNavigate();
+
+  function salir(e) {
+    e.preventDefault();
+    cerrarSesion();
+    navigate("/");
+  }
 
   useEffect(() => {
     function alHacerScroll() {
@@ -54,12 +63,22 @@ function Header() {
                 <li>
                   <Link to="/contacto">Contacto</Link>
                 </li>
-                <li>
-                  <Link to="/login">Iniciar sesión</Link>
-                </li>
-                <li>
-                  <Link to="/registro">Registrarse</Link>
-                </li>
+                {sesion ? (
+                  <li>
+                    <a href="/" onClick={salir}>
+                      Cerrar sesión ({sesion.nombre.split(" ")[0]})
+                    </a>
+                  </li>
+                ) : (
+                  <>
+                    <li>
+                      <Link to="/login">Iniciar sesión</Link>
+                    </li>
+                    <li>
+                      <Link to="/registro">Registrarse</Link>
+                    </li>
+                  </>
+                )}
                 <li>
                   <Link
                     to="/carrito"

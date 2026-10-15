@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom'
 import Contacto from '../pages/Contacto'
 import App from '../App'
 import { CarritoProvider } from '../context/CarritoContext'
+import { SesionProvider } from '../context/SesionContext'
 
 const renderizar = () => render(<MemoryRouter><Contacto /></MemoryRouter>)
 const nombre = () => screen.getByLabelText('Nombre')
@@ -73,9 +74,11 @@ describe('Página Contacto', () => {
   it('la ruta /contacto está registrada en la App', () => {
     render(
       <MemoryRouter initialEntries={['/contacto']}>
-        <CarritoProvider>
-          <App />
-        </CarritoProvider>
+        <SesionProvider>
+          <CarritoProvider>
+            <App />
+          </CarritoProvider>
+        </SesionProvider>
       </MemoryRouter>,
     )
     expect(screen.getByRole('heading', { level: 1, name: 'Contacto' })).toBeInTheDocument()

@@ -1,8 +1,10 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import Header from '../components/Header'
 import { CarritoProvider } from '../context/CarritoContext'
+import { SesionProvider } from '../context/SesionContext'
 
 
 beforeAll(() => {
@@ -20,10 +22,12 @@ afterAll(() => {
 function renderizarHeader() {
   return render(
     <MemoryRouter>
-      <CarritoProvider>
-        <div className="header-text" />
-        <Header />
-      </CarritoProvider>
+      <SesionProvider>
+        <CarritoProvider>
+          <div className="header-text" />
+          <Header />
+        </CarritoProvider>
+      </SesionProvider>
     </MemoryRouter>,
   )
 }
@@ -64,5 +68,28 @@ describe('Header', () => {
   it('el contador está oculto si el carrito está vacío', () => {
     renderizarHeader()
     expect(document.getElementById('carrito-contador')).not.toBeVisible()
+  })
+
+  it('sin sesión muestra Iniciar sesión y Registrarse', () => {
+    renderizarHeader()
+    expect(screen.getByRole('link', { name: 'Iniciar sesión' })).toHaveAttribute('href', '/login')
+    expect(screen.getByRole('link', { name: 'Registrarse' })).toHaveAttribute('href', '/registro')
+  })
+
+  it('con sesión muestra Cerrar sesión con el nombre y oculta Registrarse', () => {
+    localStorage.setItem('usuarioSesion', JSON.stringify({ nombre: 'Ana Pérez', correo: 'ana@gmail.com', rol: 'Cliente' }))
+    renderizarHeader()
+    expect(screen.getByRole('link', { name: 'Cerrar sesión (Ana)' })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Registrarse' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Iniciar sesión' })).not.toBeInTheDocument()
+  })
+
+  it('al cerrar sesión se borra de localStorage y vuelve el menú de visitante', async () => {
+    const user = userEvent.setup()
+    localStorage.setItem('usuarioSesion', JSON.stringify({ nombre: 'Ana Pérez', correo: 'ana@gmail.com', rol: 'Cliente' }))
+    renderizarHeader()
+    await user.click(screen.getByRole('link', { name: 'Cerrar sesión (Ana)' }))
+    expect(localStorage.getItem('usuarioSesion')).toBeNull()
+    expect(screen.getByRole('link', { name: 'Iniciar sesión' })).toBeInTheDocument()
   })
 })
