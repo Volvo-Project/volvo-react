@@ -48,18 +48,30 @@ function TarjetaCatalogo({
   );
 }
 
+//una función para normalizar la busqueda del juego
+function normalizar(texto) {
+  return texto
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim();
+}
+
 function Producto() {
   const [searchParams, setSearchParams] = useSearchParams();
   const busqueda = searchParams.get("buscar") ?? "";
   const filtro = searchParams.get("filtro") ?? "";
   const paginaSolicitada = Number.parseInt(searchParams.get("pagina") ?? "1", 10);
+  //buscar en más campos, no solo en el nombre
+  const termino = normalizar(busqueda);
 
   // Un juego se muestra si coincide con la búsqueda Y con la categoría elegida.
-  const productosFiltrados = productos.filter(
-    (producto) =>
-      producto.nombre.toLowerCase().includes(busqueda.toLowerCase()) &&
-      (filtro === "" || producto.filtro === filtro),
-  );
+  const productosFiltrados = productos.filter((producto) => {
+    const dondeBuscar = normalizar(
+      `${producto.nombre} ${producto.id} ${producto.categoria} ${producto.genero}`,
+    );
+    return dondeBuscar.includes(termino) && (filtro === "" || producto.filtro === filtro);
+  });
   const totalPaginas = Math.max(1, Math.ceil(productosFiltrados.length / productosPorPagina));
   const paginaActual = Math.min(Math.max(Number.isNaN(paginaSolicitada) ? 1 : paginaSolicitada, 1), totalPaginas);
   const inicio = (paginaActual - 1) * productosPorPagina;
@@ -102,7 +114,14 @@ function Producto() {
       <section className="section trending">
         <div className="container">
           <h2 className="visually-hidden">Catálogo de juegos</h2>
-          <div id="busqueda-info"></div>
+          {busqueda && (
+            <p className="busqueda-resultado">
+              {productosFiltrados.length > 0 ? `Resultados para "${busqueda}"
+              (${productosFiltrados.length})` : `No encontramos resultados para "${busqueda}"`}
+              {" - "}
+              <Link to="/producto">ver catálogo completo</Link>
+            </p>
+          )}
           <div className="row justify-content-center mb-4">
             <div className="col-lg-6">
               <input
