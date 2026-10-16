@@ -9,7 +9,7 @@ export default defineConfig({
     setupFiles: ['./src/tests/setupTests.js'],
     coverage: {
       provider: 'v8',
-      include: ['src/components/**', 'src/pages/**', 'src/data/**'],
+      include: ['src/components/**', 'src/pages/**', 'src/data/**', 'src/context/**', 'src/hooks/**', 'src/utils/**'],
       reporter: ['text', 'html'],
     },
   },
