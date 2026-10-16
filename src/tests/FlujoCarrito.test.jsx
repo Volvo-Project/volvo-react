@@ -43,7 +43,8 @@ describe('Flujo completo del carrito', () => {
     await user.click(screen.getByRole('link', { name: 'Ver carrito de compras' }))
     expect(screen.getByRole('heading', { level: 1, name: 'Carrito de Compras' })).toBeInTheDocument()
     expect(screen.getByText(juego.nombre)).toBeInTheDocument()
-    expect(screen.getByText(`Total: $${(juego.precio * 2).toLocaleString('es-CL')}`)).toBeInTheDocument()
+    const resumen = within(screen.getByRole('complementary', { name: 'Resumen del pedido' }))
+    expect(resumen.getByText(`$${(juego.precio * 2).toLocaleString('es-CL')}`)).toBeInTheDocument()
 
     // 4. "Recarga la página": se desmonta todo y se vuelve a montar con el mismo localStorage
     unmount()

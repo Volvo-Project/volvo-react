@@ -44,72 +44,77 @@ function Carrito() {
 
       <div className="section" style={{ padding: "60px 0" }}>
         <div className="container">
-          {items.length === 0 ? (
-            <p>
-              Tu carrito está vacío. <Link to="/producto">Ver juegos</Link>
-            </p>
-          ) : (
-            <div className="table-responsive">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                    <th>Cantidad</th>
-                    <th>Subtotal</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.nombre}</td>
-                      <td>{item.precio === 0 ? "Gratis" : dinero(item.precio)}</td>
-                      <td>
+          <div className="cart-layout">
+            {/* Columna izquierda: una tarjeta por producto */}
+            <div className="cart-items">
+              {items.length === 0 ? (
+                <div className="carrito-vacio">
+                  <p>Tu carrito está vacío.</p>
+                  <Link to="/producto">Ver juegos</Link>
+                </div>
+              ) : (
+                items.map((item) => (
+                  <div className="cart-item" key={item.id}>
+                    <div className="cart-item-thumb">
+                      {item.imagen ? (
+                        <img src={item.imagen} alt="" />
+                      ) : (
+                        <i className="fa fa-gamepad" aria-hidden="true"></i>
+                      )}
+                    </div>
+
+                    <div className="cart-item-info">
+                      <p className="cart-item-nombre">{item.nombre}</p>
+                      <div className="cart-item-cantidad">
                         <button
                           type="button"
-                          className="btn btn-sm btn-outline-secondary"
                           aria-label={`Restar uno a ${item.nombre}`}
                           onClick={() => cambiarCantidad(item.id, -1)}
                         >
                           -
-                        </button>{" "}
-                        <span>{item.cantidad}</span>{" "}
+                        </button>
+                        <span>{item.cantidad}</span>
                         <button
                           type="button"
-                          className="btn btn-sm btn-outline-secondary"
                           aria-label={`Sumar uno a ${item.nombre}`}
                           onClick={() => cambiarCantidad(item.id, 1)}
                         >
                           +
                         </button>
-                      </td>
-                      <td>{dinero(item.precio * item.cantidad)}</td>
-                      <td>
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-outline-danger"
-                          onClick={() => eliminar(item.id)}
-                        >
-                          Eliminar
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                      </div>
+                      <button type="button" className="btn-eliminar" onClick={() => eliminar(item.id)}>
+                        Eliminar
+                      </button>
+                    </div>
+
+                    <div className="cart-item-precio">
+                      <strong>{dinero(item.precio * item.cantidad)}</strong>
+                      <span className="cart-item-preciounit">{dinero(item.precio)} c/u</span>
+                    </div>
+                  </div>
+                ))
+              )}
             </div>
-          )}
 
-          <h4>Total: {dinero(total)}</h4>
-
-          <button type="button" className="btn btn-secondary me-2" onClick={vaciar}>
-            Vaciar carrito
-          </button>
-          <button type="button" className="btn btn-primary" onClick={finalizarCompra}>
-            Finalizar compra
-          </button>
-          {mensaje && <p className={mensaje.tipo}>{mensaje.texto}</p>}
+            {/* Columna derecha: resumen del pedido */}
+            <aside className="cart-summary" aria-label="Resumen del pedido">
+              <p className="cart-summary-titulo">Resumen del pedido</p>
+              <div className="cart-summary-total">
+                <span>Total</span>
+                <strong>{dinero(total)}</strong>
+              </div>
+              <p className="cart-summary-nota">
+                Los impuestos, si aplican, se calculan al finalizar la compra.
+              </p>
+              <button type="button" className="btn-finalizar" onClick={finalizarCompra}>
+                Finalizar compra
+              </button>
+              <button type="button" className="btn-vaciar" onClick={vaciar}>
+                Vaciar carrito
+              </button>
+              {mensaje && <p className={mensaje.tipo}>{mensaje.texto}</p>}
+            </aside>
+          </div>
         </div>
       </div>
     </>

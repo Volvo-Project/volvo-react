@@ -21,6 +21,9 @@ const renderizar = () =>
     </MemoryRouter>,
   )
 
+// El total está dentro del panel "Resumen del pedido" (un <aside>).
+const resumen = () => within(screen.getByRole('complementary', { name: 'Resumen del pedido' }))
+
 const dosJuegos = [
   { id: 'a', nombre: 'Juego A', precio: 10000, cantidad: 2 },
   { id: 'b', nombre: 'Juego B', precio: 2500, cantidad: 1 },
@@ -38,7 +41,7 @@ describe('Página Carrito', () => {
     renderizar()
     expect(screen.getByText('Juego A')).toBeInTheDocument()
     expect(screen.getByText('Juego B')).toBeInTheDocument()
-    expect(screen.getByText('Total: $22.500')).toBeInTheDocument()
+    expect(resumen().getByText('$22.500')).toBeInTheDocument()
   })
 
   it('el botón + suma una unidad y actualiza el total', async () => {
@@ -46,7 +49,7 @@ describe('Página Carrito', () => {
     guardar(dosJuegos)
     renderizar()
     await user.click(screen.getByRole('button', { name: 'Sumar uno a Juego B' }))
-    expect(screen.getByText('Total: $25.000')).toBeInTheDocument()
+    expect(resumen().getByText('$25.000')).toBeInTheDocument()
   })
 
   it('el botón - resta una unidad pero no baja de 1', async () => {
@@ -54,17 +57,17 @@ describe('Página Carrito', () => {
     guardar([{ id: 'b', nombre: 'Juego B', precio: 2500, cantidad: 1 }])
     renderizar()
     await user.click(screen.getByRole('button', { name: 'Restar uno a Juego B' }))
-    expect(screen.getByText('Total: $2.500')).toBeInTheDocument()
+    expect(resumen().getByText('$2.500')).toBeInTheDocument()
   })
 
   it('Eliminar quita la fila del producto', async () => {
     const user = userEvent.setup()
     guardar(dosJuegos)
     renderizar()
-    const fila = screen.getByText('Juego A').closest('tr')
+    const fila = screen.getByText('Juego A').closest('.cart-item')
     await user.click(within(fila).getByRole('button', { name: 'Eliminar' }))
     expect(screen.queryByText('Juego A')).not.toBeInTheDocument()
-    expect(screen.getByText('Total: $2.500')).toBeInTheDocument()
+    expect(resumen().getByText('$2.500')).toBeInTheDocument()
   })
 
   it('Vaciar carrito deja el total en cero', async () => {
@@ -72,7 +75,7 @@ describe('Página Carrito', () => {
     guardar(dosJuegos)
     renderizar()
     await user.click(screen.getByRole('button', { name: 'Vaciar carrito' }))
-    expect(screen.getByText('Total: $0')).toBeInTheDocument()
+    expect(resumen().getByText('$0')).toBeInTheDocument()
   })
 
   it('Finalizar compra con sesión iniciada agradece y vacía el carrito', async () => {
@@ -108,5 +111,27 @@ describe('Página Carrito', () => {
     await user.click(screen.getByRole('button', { name: 'Finalizar compra' }))
     expect(screen.getByText('No tiene productos para comprar')).toBeInTheDocument()
     expect(screen.queryByText('Pantalla de login')).not.toBeInTheDocument()
+  })
+
+  it('cada tarjeta muestra el subtotal, el precio unitario "c/u" y la miniatura', () => {
+    guardar([{ id: 'a', nombre: 'Juego A', precio: 10000, cantidad: 2, imagen: '/a.jpg' }])
+    renderizar()
+    const tarjeta = screen.getByText('Juego A').closest('.cart-item')
+    expect(within(tarjeta).getByText('$20.000')).toBeInTheDocument()
+    expect(within(tarjeta).getByText('$10.000 c/u')).toBeInTheDocument()
+    expect(tarjeta.querySelector('img')).toHaveAttribute('src', '/a.jpg')
+  })
+
+  it('un producto sin imagen muestra el ícono de respaldo', () => {
+    guardar([{ id: 'a', nombre: 'Juego A', precio: 1000, cantidad: 1 }])
+    renderizar()
+    const tarjeta = screen.getByText('Juego A').closest('.cart-item')
+    expect(tarjeta.querySelector('img')).toBeNull()
+    expect(tarjeta.querySelector('i.fa-gamepad')).not.toBeNull()
+  })
+
+  it('el panel de resumen muestra la nota de impuestos', () => {
+    renderizar()
+    expect(screen.getByText(/impuestos, si aplican/i)).toBeInTheDocument()
   })
 })
