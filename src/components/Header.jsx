@@ -5,6 +5,7 @@ import { useSesion } from "../context/SesionContext";
 
 function Header() {
   const [conFondo, setConFondo] = useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(false);
   const { totalItems } = useCarrito();
   const { sesion, cerrarSesion } = useSesion();
   const navigate = useNavigate();
@@ -47,7 +48,8 @@ function Header() {
                   style={{ width: "200px" }}
                 />
               </Link>
-              <ul className="nav">
+              <ul className="nav" style={menuAbierto ? { display: "block" } : undefined}
+                onClick={() => setMenuAbierto(false)}>
                 <li>
                   <Link to="/">Inicio</Link>
                 </li>
@@ -96,7 +98,13 @@ function Header() {
                   </Link>
                 </li>
               </ul>
-              <a className="menu-trigger">
+              <a
+                className={`menu-trigger${menuAbierto ? " active" : ""}`}
+                role="button"
+                aria-label="Abrir menú"
+                aria-expanded={menuAbierto}
+                onClick={() => setMenuAbierto(!menuAbierto)}
+              >
                 <span>Menu</span>
               </a>
             </nav>
