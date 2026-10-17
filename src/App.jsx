@@ -11,6 +11,7 @@ import Registro from "./pages/Registro.jsx";
 import Nosotros from "./pages/Nosotros.jsx";
 import Blogs from "./pages/Blogs.jsx";
 import BlogDetalle from "./pages/BlogDetalle.jsx";
+import NoEncontrada from "./pages/NoEncontrada.jsx";
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetalle />} />
+          <Route path="/blogs/:id" element={<BlogDetalle />} />
+          <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>
       <Footer />
