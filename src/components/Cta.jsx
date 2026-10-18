@@ -1,6 +1,24 @@
+import { useState } from "react";
+import { validarCorreo } from "../utils/validaciones";
 import { Link } from "react-router-dom";
 
+
 function Cta() {
+  const [correo, setCorreo] = useState("");
+  const [aviso, setAviso] = useState(null);
+  function suscribir(e) {
+    e.preventDefault();                                
+    const error = validarCorreo(correo);       // devuelve el mensaje, o undefined si está bien
+    if (error) {
+      setAviso({ tipo: "avisoerror", texto: error });
+      return;
+    }
+    setAviso({
+      tipo: "aviso",
+      texto: `¡Listo! Te suscribiste con ${correo.trim()}. Revisa tu correo por el descuento.`,
+    });
+    setCorreo("");                         // vacía el input, como form.reset() en volvo-web
+  }
   return (
     <section className="section cta">
       <div className="container">
@@ -39,7 +57,7 @@ function Cta() {
                     </h2>
                   </div>
                   <div className="search-input">
-                    <form id="subscribe" action="#" noValidate>
+                    <form id="subscribe" noValidate onSubmit={suscribir}>
                       <label
                         htmlFor="exampleInputEmail1"
                         className="visually-hidden"
@@ -51,13 +69,15 @@ function Cta() {
                         className="form-control"
                         id="exampleInputEmail1"
                         name="correoNewsletter"
+                        value={correo}
+                        onChange={(e) => setCorreo(e.target.value)}
                         autoComplete="email"
                         placeholder="ejemplo@duoc.cl"
                         required
                       />
                       <button type="submit">Suscribirme Ahora</button>
                     </form>
-                    <p id="subscribe-aviso" className="aviso" hidden></p>
+                    {aviso && <p id="subscribe-aviso" className={aviso.tipo}>{aviso.texto}</p>}
                   </div>
                 </div>
               </div>
