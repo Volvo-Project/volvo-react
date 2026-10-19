@@ -1,212 +1,127 @@
 # Documento de cobertura de testing
 
-**Proyecto:** Volvo React  
-**Tecnologías:** Vite, React y JavaScript  
-**Pruebas:** Vitest, React Testing Library, `user-event` y jsdom  
-**Fecha de ejecución documentada:** 18 de octubre de 2026
+**Proyecto:** Volvo React · DSY1104 Desarrollo Fullstack II, Evaluación Parcial 2  
+**Integrantes:** Nicolás Olivares, Matías Rodríguez, Emiliano Cerda  
+**Ejecución documentada:** 19 de octubre de 2026, commit `828e8ce`
 
-> Este informe describe pruebas ejecutadas en este repositorio. Los resultados son una medición de esa ejecución y pueden cambiar al modificar el código o la suite.
+**Resultado:** 131 de 131 pruebas aprobadas en 26 archivos, con **99,39 %** de cobertura de líneas y **100 %** de funciones. Todos los archivos superan el mínimo de 60 % acordado por el equipo.
 
-## 1. Objetivo
+## 1. Alcance
 
-Documentar el alcance comprobado por las pruebas automatizadas, identificar las áreas que requieren cobertura adicional y dejar registro de los resultados obtenidos. Los porcentajes informan qué parte del código instrumentado se ejecutó; no garantizan por sí solos que el comportamiento sea correcto ni que no existan defectos.
+Se prueban componentes y páginas React, validadores, Context de carrito y sesión, el hook `useFormulario`, navegación, formularios, renderizado condicional, interacciones de usuario y persistencia en `localStorage`.
 
-## 2. Alcance de las pruebas
+Quedan fuera: el comportamiento visual en navegadores reales (incluido el diseño responsivo, que se muestra en la presentación) y el despliegue. El proyecto es solo frontend, así que no hay backend ni llamadas HTTP que probar. No se usaron pruebas E2E en navegador real (Playwright o Cypress).
 
-La suite verifica componentes y páginas React, validadores, proveedores de estado, navegación, formularios, renderizado condicional, interacciones de usuario y persistencia en `localStorage`.
+## 2. Herramientas y configuración
 
-Se excluyen de la validación ejecutada: infraestructura, servicios backend, bases de datos, servicios externos, pagos reales y comportamiento visual en navegadores reales. Tampoco se ejecutó una suite End to End (E2E) con Playwright o Cypress.
+> La pauta menciona Jasmine y Karma. El equipo usó **Vitest** con autorización del docente, porque se integra directamente con Vite, el empaquetador del proyecto.
 
-## 3. Estructura relevante del proyecto
+| Herramienta | Uso |
+|---|---|
+| Vitest + `@vitest/coverage-v8` | Ejecuta las pruebas y mide la cobertura |
+| jsdom | Simula el navegador |
+| React Testing Library | Busca elementos como los ve el usuario: por rol, texto o etiqueta |
+| `user-event` | Simula clics y escritura |
+| `@testing-library/jest-dom` | Aserciones del DOM: `toBeInTheDocument`, `toHaveClass`, `toHaveValue`, etc. |
+| `src/tests/setupTests.js` | Después de cada prueba limpia el DOM y `localStorage`, para que ninguna dependa de otra |
 
-```text
-src/
-  components/  Header y componentes de interfaz
-  context/     CarritoContext y SesionContext
-  data/        Datos de productos y blogs
-  hooks/       Hooks de formularios
-  pages/       Catálogo, detalle, carrito, formularios y demás páginas
-  tests/       Pruebas automatizadas
-  utils/       Validadores
-  App.jsx      Definición de rutas
-```
-
-## 4. Herramientas y configuración
-
-- **Vitest** ejecuta la suite y calcula la cobertura mediante el proveedor V8.
-- **jsdom** proporciona el entorno DOM simulado.
-- **React Testing Library** verifica contenido y comportamiento accesibles desde la interfaz.
-- **`user-event`** simula interacciones como escribir, hacer clic y cambiar de campo.
-- **`@testing-library/jest-dom`** proporciona aserciones para el DOM.
-- `src/tests/setupTests.js` configura los matchers y limpia el DOM y `localStorage` después de cada caso.
-
-Comandos disponibles:
+En `vite.config.js`, la cobertura instrumenta `components`, `pages`, `data`, `context`, `hooks` y `utils`, y genera reportes en consola y en `coverage/index.html`.
 
 ```bash
-npm run test:run
-npm run coverage
+npm run test:run   # ejecuta toda la suite
+npm run coverage   # ejecuta la suite y genera el reporte de cobertura
 ```
 
-La configuración en `vite.config.js` genera reportes de texto y HTML e instrumenta `src/components/**`, `src/pages/**`, `src/data/**`, `src/context/**`, `src/hooks/**` y `src/utils/**`.
+## 3. Cobertura obtenida
 
-## 5. Tipos de pruebas implementadas
+| Métrica | Cubierto | Cobertura |
+|---|---:|---:|
+| Statements | 363 / 368 | 98,64 % |
+| Branches | 188 / 198 | 94,94 % |
+| Functions | 115 / 115 | 100 % |
+| Lines | 328 / 330 | 99,39 % |
 
-| Tipo | Alcance observado |
-|---|---|
-| Unitarias | Validadores, datos y lógica de los contextos de carrito y sesión. |
-| Componentes y páginas | Renderizado, estados condicionales, mensajes y controles de catálogo, formularios y páginas. |
-| Integración | Rutas, proveedores React, persistencia en `localStorage` y recorridos de compra usando la aplicación real dentro de jsdom. |
-| E2E en navegador | No ejecutadas. Los flujos de integración en jsdom no equivalen a E2E en un navegador real. |
+De los 30 archivos instrumentados, 23 están al 100 %. Los 7 restantes:
 
-## 6. Cobertura funcional por área
+| Archivo | Stmts | Branches | Lines | Qué queda sin ejecutar |
+|---|---:|---:|---:|---|
+| `context/CarritoContext.jsx` | 100 % | 83,33 % | 100 % | `localStorage` con un valor que no es arreglo (línea 11) y una rama al sumar cantidad a un producto existente (línea 32) |
+| `pages/DetalleProducto.jsx` | 100 % | 87,5 % | 100 % | Producto sin opiniones (líneas 29 y 151) |
+| `pages/Registro.jsx` | 96 % | 90 % | 95,83 % | Redirección si el usuario ya inició sesión (línea 18) |
+| `components/Header.jsx` | 95,23 % | 91,66 % | 100 % | Página sin `.header-text` (línea 24) |
+| `pages/Producto.jsx` | 97,72 % | 92,3 % | 100 % | Número de página no numérico en la URL (línea 76) y combinaciones del buscador (líneas 137-138) |
+| `utils/validaciones.js` | 93,75 % | 92,85 % | 100 % | Correo de más de 100 caracteres (línea 8) |
+| `context/SesionContext.jsx` | 96,87 % | 100 % | 96,66 % | `localStorage` con JSON inválido (línea 13) |
 
-| Área | Validaciones que contiene la suite |
-|---|---|
-| Navegación y rutas | Carga de las rutas principales, enlaces relevantes, detalle de blog y rutas de Contacto y páginas informativas. |
-| Catálogo | Tarjetas, precios, juegos gratuitos, búsqueda con y sin coincidencias, filtros, categorías y enlaces al detalle. |
-| Paginación | Páginas disponibles, cambio de página, productos mostrados, página activa y conservación del filtro. |
-| Detalle de producto | Identificador válido e inexistente, opiniones, agregado al carrito y rechazo de cantidad inválida. |
-| Carrito | Carrito vacío y poblado, cantidades, subtotales, total, eliminación, vaciado, imagen opcional y resumen del pedido. |
-| Compra | Validación de carrito vacío, compra con sesión, redirección al login y conservación del carrito durante autenticación. |
-| Sesión y registro | Registro válido y duplicado, correo normalizado, credenciales válidas e inválidas, persistencia, carga de sesión y cierre de sesión. |
-| Contacto | Campos requeridos, validación al interactuar, dominios de correo permitidos, límites, envío válido, limpieza y contador de caracteres. |
-| Blog | Tarjetas, títulos, resúmenes, imágenes, navegación al detalle, contenido, video o imagen y noticia inexistente. |
-| Nosotros y encabezado | Secciones e integrantes; enlaces, estado de sesión, contador de carrito y cambio de estilo al desplazarse. |
-| Datos y validaciones | Unicidad de identificadores, relación entre precio y estado gratuito, reglas de correo y contraseña, y límites de longitud. |
+Son casos de borde (datos corruptos o valores inesperados). No queda ningún flujo principal sin probar.
 
-## 7. Pruebas de componentes y páginas
+## 4. Pruebas por archivo
 
-| Componente o página | Comprobaciones realizadas | Estado de la suite |
+| Archivo | Casos | Qué verifica |
+|---|---:|---|
+| `Carrito.test.jsx` | 13 | Carrito: productos, cantidades, totales, eliminar, vaciar y compra |
+| `CarritoContext.test.jsx` | 10 | Lógica del Context del carrito y persistencia |
+| `Header.test.jsx` | 8 | Enlaces, scroll, contador del carrito y menú según sesión |
+| `Producto.test.jsx` | 8 | Catálogo: tarjetas, búsqueda, filtros y enlaces |
+| `SesionContext.test.jsx` | 8 | Registro, inicio y cierre de sesión |
+| `validaciones.test.js` | 8 | Reglas de correo y contraseña |
+| `validarContacto.test.js` | 8 | Reglas del formulario de contacto |
+| `Contacto.test.jsx` | 7 | Formulario de contacto |
+| `Login.test.jsx` | 7 | Formulario de inicio de sesión |
+| `Rutas.test.jsx` | 7 | Cada enlace del menú lleva a su página |
+| `DetalleProducto.test.jsx` | 6 | Ficha, opiniones y agregar al carrito |
+| `BlogDetalle.test.jsx` | 5 | Detalle de noticia y noticia inexistente |
+| `MenuCelular.test.jsx` | 4 | Menú del celular: abre, cierra y se cierra al tocar un enlace |
+| `Paginacion.test.jsx` | 4 | Cambio de página, página activa y filtro conservado |
+| `Registro.test.jsx` | 4 | Formulario de registro |
+| `Banner.test.jsx` | 3 | Buscador del inicio (con mock) |
+| `Blogs.test.jsx` | 3 | Listado de noticias |
+| `Newsletter.test.jsx` | 3 | Validación del newsletter |
+| `NoEncontrada.test.jsx` | 3 | Página 404 |
+| `Inicio.test.jsx` | 2 | Secciones del inicio y enlace de categoría |
+| `Nosotros.test.jsx` | 2 | Página Nosotros |
+| `Producto.mock.test.jsx` | 2 | Catálogo con datos simulados (mock) |
+| `blogs.data.test.js` | 2 | Integridad de los datos de blogs |
+| `productos.data.test.js` | 2 | Integridad de los datos de productos |
+| `FlujoCarrito.test.jsx` | 1 | Integración: catálogo → detalle → carrito y persistencia |
+| `FlujoCompra.test.jsx` | 1 | Integración: compra sin sesión → login → vuelve al carrito |
+| **Total** | **131** | |
+
+## 5. Casos representativos
+
+| ID | Caso | Resultado esperado |
 |---|---|---|
-| `Header` | Enlace al catálogo, estado al desplazarse, contador del carrito, menú según sesión y cierre de sesión. | Aprobado |
-| `Producto` | Tarjetas, precio, juego gratuito, búsqueda, filtros y navegación al detalle; también se prueba con datos simulados. | Aprobado |
-| `DetalleProducto` | Producto no encontrado, opiniones, cantidad y agregado al carrito. | Aprobado |
-| `Carrito` | Renderizado de productos y acciones; casos de compra autenticada y no autenticada. | Aprobado |
-| `Contacto` | Campos, validaciones, envío correcto, contador y registro de ruta. | Aprobado |
-| `Login` y `Registro` | Errores, credenciales, validación, persistencia y redirecciones. | Aprobado |
-| `Blogs` y `BlogDetalle` | Listado, detalle, variaciones de contenido y ruta inválida. | Aprobado |
-| `Nosotros` | Título, secciones y equipo. | Aprobado |
+| FOR-01 | Enviar Contacto, Login o Registro vacío | Errores de campos requeridos |
+| FOR-02 | Correo con dominio no permitido (Contacto, Login y Newsletter) | Mensaje con los dominios permitidos |
+| FOR-03 | Registrar contraseñas distintas o un correo ya usado | Error y registro rechazado |
+| FOR-04 | Newsletter con correo `@duoc.cl` | Confirmación y campo vaciado |
+| NAV-01 | Abrir una dirección inexistente (`/nadaqver`) | "Página no encontrada", sin afectar rutas válidas |
+| NAV-02 | Buscar desde el banner | Navegar a `/producto?buscar=<texto>` |
+| NAV-03 | Cambiar de página con un filtro activo | Se conserva el filtro |
+| INT-01 | Catálogo → detalle → carrito, y recargar la app | Producto y total correctos, recuperados desde `localStorage` |
+| INT-02 | Comprar sin sesión → login → volver | Se conserva el carrito y se completa la compra |
 
-## 8. Casos representativos de formularios
+Todos aprobados. Los flujos de integración usan `MemoryRouter`, que permite indicar la dirección inicial con `initialEntries`.
 
-| ID | Caso comprobado | Resultado esperado | Estado |
+## 6. Uso de mocks
+
+| Archivo | Qué se simula | Cómo | Para qué |
 |---|---|---|---|
-| FOR-01 | Enviar Contacto, Login o Registro vacío | Mostrar los errores de campos requeridos correspondientes. | Aprobado |
-| FOR-02 | Ingresar correo de dominio no permitido | Informar que el correo no cumple la regla de dominio. | Aprobado |
-| FOR-03 | Ingresar datos válidos en Contacto | Mostrar confirmación y limpiar los campos. | Aprobado |
-| FOR-04 | Registrar contraseñas distintas | Mostrar el error de discrepancia. | Aprobado |
-| FOR-05 | Registrar un correo ya utilizado | Rechazar el registro y conservar un solo usuario. | Aprobado |
-| FOR-06 | Iniciar sesión con credenciales incorrectas | Mostrar error y no crear sesión. | Aprobado |
-| FOR-07 | Iniciar sesión con credenciales existentes | Guardar la sesión y navegar al destino esperado. | Aprobado |
+| `Producto.mock.test.jsx` | Datos de `productos.js` | `vi.mock('../data/productos', ...)` con 2 productos | Probar el catálogo con datos conocidos: 2 tarjetas, precio `$12.990` y un juego "Gratis" |
+| `Banner.test.jsx` | `useNavigate` de React Router | `vi.fn()` + `vi.mock('react-router-dom', ...)`, que reemplaza solo `useNavigate` | Verificar a qué dirección navega el buscador (`toHaveBeenCalledWith`) sin cambiar de página. `mockClear()` limpia las llamadas entre pruebas |
 
-## 9. Pruebas de servicios
+## 7. Elementos sin prueba dedicada
 
-No se identifican pruebas de consumo de servicios backend ni de llamadas HTTP en la suite revisada. Por lo tanto, las respuestas HTTP, errores de red, tiempos de espera y disponibilidad de servicios no forman parte de los resultados de este informe.
+Criterio del equipo: se prueba todo lo que toma decisiones (estado, validaciones, condiciones, navegación, `localStorage`). Lo que solo muestra contenido fijo se justifica.
 
-## 10. Pruebas de navegación e integración
-
-| ID | Acción | Resultado esperado | Estado |
-|---|---|---|---|
-| NAV-01 | Abrir `/nosotros`, `/blogs`, `/contacto`, `/carrito`, `/login` o `/registro` | Mostrar la página correspondiente. | Aprobado |
-| NAV-02 | Abrir el detalle de un blog existente | Mostrar el contenido de la noticia. | Aprobado |
-| INT-01 | Catálogo → detalle → agregar al carrito → carrito | Mostrar producto, cantidad y total coherentes. | Aprobado |
-| INT-02 | Remontar la aplicación después de agregar productos | Recuperar carrito y contador desde `localStorage`. | Aprobado |
-| INT-03 | Intentar comprar sin sesión, iniciar sesión y volver al carrito | Conservar el carrito y permitir completar la compra. | Aprobado |
-
-Estos flujos usan `MemoryRouter` y jsdom. No validan una sesión real del navegador ni despliegue en un entorno productivo.
-
-## 11. Pruebas End to End
-
-No se encontraron pruebas E2E ejecutadas con Playwright, Cypress u otra herramienta de navegador. Los flujos `FlujoCarrito.test.jsx` y `FlujoCompra.test.jsx` son pruebas de integración automatizadas sobre la aplicación en jsdom; se reportan como tales y no como E2E.
-
-## 12. Resultado de ejecución
-
-Comando ejecutado: `npm run coverage`
-
-| Resultado | Cantidad |
-|---|---:|
-| Archivos de prueba aprobados | 21 de 21 |
-| Casos aprobados | 116 de 116 |
-| Casos fallidos | 0 |
-
-## 13. Cobertura global de código
-
-| Métrica | Cubierto | Total | Cobertura |
-|---|---:|---:|---:|
-| Statements | 328 | 354 | 92,65 % |
-| Branches | 178 | 190 | 93,68 % |
-| Functions | 93 | 110 | 84,54 % |
-| Lines | 293 | 316 | 92,72 % |
-
-## 14. Interpretación de las métricas
-
-| Métrica | Interpretación |
+| Elemento | Justificación |
 |---|---|
-| Statements | Proporción de instrucciones instrumentadas que ejecutó la suite. |
-| Branches | Proporción de ramas de decisión instrumentadas que se ejecutaron. |
-| Functions | Proporción de funciones instrumentadas que se ejecutaron. |
-| Lines | Proporción de líneas ejecutables instrumentadas que se ejecutaron. |
+| `main.jsx` | Solo monta `<App />` con sus Providers. No tiene lógica, y cada pieza se prueba por separado |
+| `styles/*.css`, `public/assets/*` | No es código con lógica. El responsivo depende de *media queries*, que jsdom no aplica; se muestra en la presentación |
+| `Footer`, `Features`, `Trending`, `MostPlayed`, `Categories` | Contenido fijo sin lógica. Quedan al 100 % al dibujarse en `Inicio.test.jsx` y `Rutas.test.jsx` |
+| `CampoFormulario`, `useFormulario` | Piezas internas de los formularios. Quedan al 100 % a través de Contacto, Login y Registro |
+| `App.jsx` | Solo declara rutas. Se prueba con `Rutas.test.jsx` y `NoEncontrada.test.jsx` |
 
-La cobertura de una rama no demuestra que una aserción valide correctamente el resultado esperado. Asimismo, un porcentaje agregado alto puede ocultar archivos o escenarios con cobertura baja.
+## 8. Conclusión
 
-## 15. Cobertura por área y archivos que requieren atención
-
-El reporte de esta ejecución muestra diferencias importantes entre áreas:
-
-| Área del reporte | Statements | Branches | Functions | Lines |
-|---|---:|---:|---:|---:|
-| `components` | 56,25 % | 80 % | 36 % | 55,55 % |
-| `context` | 98,46 % | 90,9 % | 100 % | 98,27 % |
-| `pages` | 98,18 % | 94,39 % | 97,77 % | 98,65 % |
-| `utils` | 98,21 % | 97,61 % | 100 % | 100 % |
-
-Hallazgos concretos del reporte:
-
-- `Banner.jsx` e `Inicio.jsx` registran 0 % de cobertura.
-- `Categories.jsx` y `Features.jsx` registran 25 % de statements y líneas.
-- `MostPlayed.jsx` registra 50 % de statements y líneas.
-- `Trending.jsx` registra 50 % de statements y 40 % de líneas.
-- `Header.jsx` registra 100 % de líneas, pero conserva ramas no cubiertas.
-
-La suite tiene pruebas para componentes principales y páginas, pero varios componentes de presentación y la página de inicio requieren pruebas directas o escenarios adicionales. Los datos por área no deben interpretarse como equivalentes a cobertura visual.
-
-## 16. Criterios de aceptación
-
-En la configuración actual no hay umbrales mínimos de cobertura que hagan fallar `npm run coverage`. Por tanto:
-
-| Criterio observado | Resultado |
-|---|---|
-| La suite completa debe finalizar sin fallos | Cumple: 116 de 116 casos aprobados. |
-| Cobertura mínima global configurada | No definida en `vite.config.js`. |
-| Aprobación automática basada en porcentaje | No configurada. |
-
-Los porcentajes anteriores son métricas informativas de esta ejecución, no un certificado de cumplimiento de un umbral institucional.
-
-## 17. Pendientes recomendados
-
-1. Añadir pruebas para `Inicio.jsx` y `Banner.jsx`, actualmente con 0 % en el reporte.
-2. Ampliar las pruebas de componentes con cobertura parcial, priorizando ramas condicionales e interacciones.
-3. Añadir pruebas de navegador E2E para recorridos críticos si el proyecto requiere validar la experiencia en navegador real.
-4. Incorporar pruebas de servicios y errores HTTP si se integra un backend.
-5. Definir umbrales de cobertura acordados por el equipo antes de convertirlos en criterio obligatorio.
-6. Evaluar las combinaciones inválidas de datos de `localStorage` en los flujos que dependan de esos valores.
-
-## 18. Evidencias
-
-| Evidencia | Registro disponible |
-|---|---|
-| Ejecución de pruebas | Salida de `npm run coverage`: 21 archivos aprobados y 116 casos aprobados. |
-| Métricas | Reporte V8 en la consola con Statements, Branches, Functions y Lines. |
-| Configuración | `vite.config.js` declara el proveedor V8 y los reporteros `text` y `html`. |
-| Ubicación del reporte HTML | Se genera localmente en `coverage/index.html` al ejecutar la cobertura; no se incluye como evidencia versionada en este documento. |
-| Versión de código y entorno | Fecha de ejecución registrada en este informe; no se adjuntó identificador de commit. |
-
-## 19. Resultado general
-
-La ejecución documentada finalizó sin fallos y alcanzó 92,72 % de cobertura de líneas y 93,68 % de ramas en el código instrumentado. La cobertura de componentes es considerablemente menor que la de páginas, contextos y utilidades; `Inicio.jsx` y `Banner.jsx` son los vacíos más visibles del reporte. No hay umbral configurado, por lo que el resultado se considera una medición descriptiva y no una aprobación formal basada en cobertura.
-
-## 20. Conclusión
-
-La suite existente valida reglas de negocio y recorridos importantes del catálogo, el carrito, la compra, la sesión y los formularios. La ejecución registrada confirma que todos los casos automatizados pasan, y las métricas permiten priorizar áreas con menor ejecución.
-
-Para ampliar la validación conviene cubrir los componentes y la página de inicio que aparecen sin pruebas, definir criterios de cobertura con el equipo y complementar las pruebas en jsdom con E2E en navegador cuando el alcance del proyecto lo requiera.
+La suite pasa completa (131/131) y ejecuta el 99,39 % de las líneas. Cubre la lógica principal de la tienda (catálogo, paginación, carrito, compra, sesión y formularios con validación) e incluye mocks para aislar datos y navegación. Todos los archivos superan el 60 % acordado, y los que no tienen prueba propia están justificados.
