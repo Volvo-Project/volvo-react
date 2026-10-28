@@ -29,7 +29,6 @@ function App() {
           <Route path="/nosotros" element={<Nosotros />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/blogs/:id" element={<BlogDetalle />} />
-          <Route path="/blogs/:id" element={<BlogDetalle />} />
           <Route path="*" element={<NoEncontrada />} />
         </Routes>
       </main>

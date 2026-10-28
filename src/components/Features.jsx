@@ -4,7 +4,6 @@ const features = [
   {
     enlace: "/nosotros",
     icono: "fa-bolt",
-    titulo: "Entrega inmediata",
   },
   {
     enlace: "/contacto",
