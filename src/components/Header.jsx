@@ -18,13 +18,7 @@ function Header() {
 
   useEffect(() => {
     function alHacerScroll() {
-      const caja = document.querySelector(".header-text");
-      const header = document.querySelector("header");
-
-      if (!caja || !header) return;
-
-      // Bajé mas q el alto del banner menos el alto del header?
-      setConFondo(window.scrollY >= caja.offsetHeight - header.offsetHeight);
+      setConFondo(window.scrollY > 10);
     }
 
     alHacerScroll();
